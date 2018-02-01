@@ -1,0 +1,15 @@
+.info {
+  color: #9a9a9a;
+  margin-left: 9rem;
+}
+
+.children {
+  width: calc(100% - 9rem);
+  display: inline-flex;
+}
+
+.form {
+  margin: 0 !important;
+  display: inline-flex;
+  width: 100% !important;
+}

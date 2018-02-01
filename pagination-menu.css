@@ -1,0 +1,4 @@
+.pagination :global(.item) {
+  width: 3.6rem !important;;
+  display: block !important
+}

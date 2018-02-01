@@ -1,0 +1,17 @@
+.leftLabel {
+  border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 1em !important;
+}
+
+.rightSelect {
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+.container {
+  display: inline-flex !important;
+  height: 100% !important;
+}

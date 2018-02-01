@@ -1,0 +1,19 @@
+.right {
+  margin: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  border-top-width: 1px !important;
+  border-bottom-width: 1px !important;
+}
+
+.left {
+  margin: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-top-width: 1px !important;
+  border-bottom-width: 1px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
