@@ -14,12 +14,14 @@ const propTypes = {
   filePickerType: PropTypes.string,
   getDropzonePreview: PropTypes.func,
   note: PropTypes.string.isRequired,
+  initWithPreview: PropTypes.bool,
 }
 
 const defaultProps = {
   multiple: false,
   getDropzonePreview: null,
   filePickerType: null,
+  initWithPreview: false,
 }
 
 class CustomDropzone extends Component {
@@ -28,9 +30,10 @@ class CustomDropzone extends Component {
       getDropzonePreview,
       note,
       hasFile,
+      initWithPreview,
     } = this.props
 
-    if (acceptedFiles.length && hasFile) {
+    if (initWithPreview || (acceptedFiles.length && hasFile)) {
       return getDropzonePreview ? getDropzonePreview(acceptedFiles) : acceptedFiles[0].name
     }
 
