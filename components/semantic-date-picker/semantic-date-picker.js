@@ -11,6 +11,7 @@ import { momentObj } from 'react-moment-proptypes'
 import styles from './semantic-date-picker.css'
 import 'semantic-ui-css/semantic.min.css'
 
+
 const formatDateToLocale = (dt, tz = 'America/Toronto') => (
   moment.tz(dt, tz).toDate().toLocaleDateString()
 )
@@ -60,16 +61,18 @@ class SemanticDatePicker extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { startDate, endDate, isOpen } = this.state
+    const { onSelection } = this.props
 
     if (prevState.isOpen === true && isOpen === false) {
-      this.props.onSelection({ startDate, endDate })
+      onSelection({ startDate, endDate })
     }
   }
 
   open = () => {
-    if (!this.props.keepDatesOnOpen) {
+    const { keepDatesOnOpen, endDateOnly } = this.props
+    if (!keepDatesOnOpen) {
       this.setState({ endDate: null })
-      if (!this.props.endDateOnly) {
+      if (!endDateOnly) {
         this.setState({ startDate: null })
       }
     }
@@ -104,9 +107,9 @@ class SemanticDatePicker extends Component {
     const startDateString = formatDateToLocale(startDate)
     const endDateString = endDate ? formatDateToLocale(endDate) : 'Select Date'
 
-    const durationString = startDate ?
-      `${(startDateString)} \u2192 ${endDateString}` :
-      'Select a Date Range'
+    const durationString = startDate
+      ? `${(startDateString)} \u2192 ${endDateString}`
+      : 'Select a Date Range'
 
     return (
       <Label
@@ -120,10 +123,13 @@ class SemanticDatePicker extends Component {
   }
 
   onDatesChange = ({ startDate, endDate }) => {
+    const { endDate: endDateState } = this.state
+    const { keepOpenOnSelection } = this.props
     const endStart = moment(endDate).startOf('day')
-    const currEndStart = moment(this.state.endDate).startOf('day')
-    if (!(endDate === null || endStart.isSame(currEndStart))) {
-      if (!this.props.keepOpenOnSelection) {
+    const currEndStart = moment(endDate).startOf('day')
+
+    if (!(endDateState === null || endStart.isSame(currEndStart))) {
+      if (!keepOpenOnSelection) {
         this.close()
       }
     }
@@ -132,7 +138,6 @@ class SemanticDatePicker extends Component {
   }
 
   isOutsideRange = (day) => {
-    const { focusedInput } = this.state
     const {
       endDateOnly,
       blockedEnd,
@@ -200,6 +205,7 @@ class SemanticDatePicker extends Component {
 
   render() {
     const { position } = this.props
+    const { isOpen } = this.state
 
     return (
       <Popup
@@ -209,7 +215,7 @@ class SemanticDatePicker extends Component {
         on='click'
         onOpen={this.onOpen}
         onClose={this.close}
-        open={this.state.isOpen}
+        open={isOpen}
         position={position}
       />
     )

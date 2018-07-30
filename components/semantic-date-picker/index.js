@@ -1,3 +1,4 @@
-import SemanticDatePicker from './semantic-date-picker.js'
+import SemanticDatePicker from './semantic-date-picker'
+
 
 export default SemanticDatePicker

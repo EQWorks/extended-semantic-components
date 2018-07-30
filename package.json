@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "lint": "./node_modules/.bin/eslint components/. stories/.",
+    "lint:fix": "./node_modules/.bin/eslint components/. stories/. --fix"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/react": "^3.4.8",
     "moment-timezone": "^0.5.21",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dates": "^17.1.1",
     "react-dom": "^16.4.1",
@@ -19,9 +24,14 @@
     "semantic-ui-react": "^0.82.0"
   },
   "devDependencies": {
-    "@storybook/react": "^3.4.8",
     "autoprefixer": "^9.0.0",
     "babel-core": "^6.26.3",
-    "css-loader": "^1.0.0"
+    "babel-eslint": "^8.2.6",
+    "css-loader": "^1.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0"
   }
 }

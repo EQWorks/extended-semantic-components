@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions';
+import { action } from '@storybook/addon-actions'
 
 import moment from 'moment-timezone'
 
@@ -24,14 +24,14 @@ storiesOf('SemanticDatePicker', module)
     render(
       <SemanticDatePicker
         {...defaultProps}
-        onSelection={({ startDate, endDate }) => {action('Custom Function')(startDate, endDate)}}
+        onSelection={({ startDate, endDate }) => { action('Custom Function')(startDate, endDate) }}
       />,
       'On date selection, runs a function with argument of object { startDate, endDate }',
     )
   ))
   .add('End Date Only', () => (
     render(
-      <SemanticDatePicker {...defaultProps} endDateOnly startDate={moment()}/>,
+      <SemanticDatePicker {...defaultProps} endDateOnly startDate={moment()} />,
       'Can restrict the date picker to only allow changes to the end date',
     )
   ))
@@ -50,27 +50,27 @@ storiesOf('SemanticDatePicker', module)
   })
   .add('Number of Months', () => (
     render(
-      <SemanticDatePicker {...defaultProps} numberOfMonths={2}/>,
+      <SemanticDatePicker {...defaultProps} numberOfMonths={2} />,
       'Can change number of months shown',
     )
   ))
   .add('Keep open on date selection', () => (
     render(
-      <SemanticDatePicker {...defaultProps} keepOpenOnSelection/>,
+      <SemanticDatePicker {...defaultProps} keepOpenOnSelection />,
       'Keeps date picker open after selecting dates',
     )
   ))
   .add('Calendar popup position', () => (
     render(
-      (<div style={{padding: '200px 200px'}} >
+      <div style={{ padding: '200px 200px' }}>
         <SemanticDatePicker {...defaultProps} position='top center' />
-      </div>),
-      `Can specify the position of the calendar popup based on semantic ui popup position prop`,
+      </div>,
+      'Can specify the position of the calendar popup based on semantic ui popup position prop',
     )
   ))
   .add('Customize Label', () => (
     render(
-      <SemanticDatePicker {...defaultProps} labelProps={{icon: 'eye'}}/>,
+      <SemanticDatePicker {...defaultProps} labelProps={{ icon: 'eye' }} />,
       `Can customize the label that shows the date according to the semantic-ui label docs, not all
       label props will work however`,
     )
