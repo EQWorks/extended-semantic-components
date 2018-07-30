@@ -1,0 +1,38 @@
+.label {
+  cursor: pointer !important;
+  font-weight: unset !important;
+  font-size: unset !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+:global(.semanticCalendar .CalendarDay__highlighted_calendar),
+:global(.semanticCalendar .CalendarDay__selected_span),
+:global(.semanticCalendar .CalendarDay__selected),
+:global(.semanticCalendar .CalendarDay__selected:active),
+:global(.semanticCalendar .CalendarDay__selected:hover),
+:global(.semanticCalendar .CalendarDay__hovered_span),
+:global(.semanticCalendar .CalendarDay__hovered_span:hover),
+:global(.semanticCalendar .CalendarDay__hovered_span:active)
+{
+  background: #2185d0 !important;
+  border: 1px solid #1C70B0 !important;
+  color: #fff !important;
+}
+
+:global(.semanticCalendar .CalendarDay__highlighted_calendar:active),
+:global(.semanticCalendar .CalendarDay__highlighted_calendar:hover),
+:global(.semanticCalendar .CalendarDay__selected_span:active),
+:global(.semanticCalendar .CalendarDay__selected_span:hover),
+:global(.semanticCalendar .CalendarDay__default:hover),
+:global(.semanticCalendar .CalendarDay__selected_start),
+:global(.semanticCalendar .CalendarDay__selected_end)
+{
+  background: #1C70B0 !important;
+  border: 1px solid #1C70B0 !important;
+  color: #fff !important;
+}
+
+:global(.semanticCalendar .CalendarDay__last_in_range) {
+  border-right: #2185d0 !important;
+}
