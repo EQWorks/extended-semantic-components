@@ -13,11 +13,13 @@ const propTypes = {
   children: PropTypes.node.isRequired,
   defaultSortKey: PropTypes.string,
   downloadName: PropTypes.string,
+  download: PropTypes.bool,
 }
 
 const defaultProps = {
   defaultSortKey: '',
   downloadName: 'Table',
+  download: true,
 }
 
 
@@ -107,11 +109,14 @@ class DataTable extends Component {
   }
 
   renderCell = (row, col) => {
+    if (col.nullTemplate && (row[col.dataKey] === null || row[col.dataKey] === undefined)) {
+      return col.nullTemplate
+    }
     if (col.format) {
       return numeral(row[col.dataKey]).format(col.format)
     }
     if (col.template) {
-      return col.template(row[col.dataKey])
+      return col.template(row[col.dataKey], row)
     }
 
     return row[col.dataKey]
@@ -119,7 +124,7 @@ class DataTable extends Component {
 
 
   render() {
-    const { data } = this.props
+    const { data, download } = this.props
     const { activePage, sortColumn, sortDirection, searchInput } = this.state
 
     // set unique row key
@@ -163,11 +168,13 @@ class DataTable extends Component {
               size='medium'
               icon='search'
             />
-            <Button onClick={this.downloadReport} floated='right' color='blue'>
-              <Button.Content visible>
-                <Icon name='download' />
-              </Button.Content>
-            </Button>
+            {download && (
+              <Button onClick={this.downloadReport} floated='right' color='blue'>
+                <Button.Content visible>
+                  <Icon name='download' />
+                </Button.Content>
+              </Button>
+            )}
           </div>
           <Table
             sortable
@@ -181,7 +188,7 @@ class DataTable extends Component {
               <Table.Row>
                 {columns.map(col => (
                   <Table.HeaderCell
-                    key={col.dataKey}
+                    key={col.dataKey || col.name}
                     onClick={this.handleSort(col.dataKey)}
                     sorted={sortColumn === col.dataKey ? sortDirection : null}
                   >{col.name}
@@ -193,7 +200,7 @@ class DataTable extends Component {
               {paginatedData.map(row => (
                 <Table.Row key={row._id}>
                   {columns.map(col => (
-                    <Table.Cell key={col.dataKey}>
+                    <Table.Cell key={col.dataKey || col.name}>
                       {this.renderCell(row, col)}
                     </Table.Cell>
                   ))}
