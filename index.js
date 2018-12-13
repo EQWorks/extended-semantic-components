@@ -14,12 +14,14 @@ const propTypes = {
   defaultSortKey: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
+  search: PropTypes.bool,
 }
 
 const defaultProps = {
   defaultSortKey: '',
   downloadName: 'Table',
   download: true,
+  search: true,
 }
 
 
@@ -64,7 +66,7 @@ class DataTable extends Component {
   }
 
   columns() {
-    return this.props.children
+    return (Array.isArray(this.props.children) ? this.props.children : [this.props.children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => c.props)
   }
@@ -124,7 +126,7 @@ class DataTable extends Component {
 
 
   render() {
-    const { data, download } = this.props
+    const { data, download, search } = this.props
     const { activePage, sortColumn, sortDirection, searchInput } = this.state
 
     // set unique row key
@@ -158,16 +160,19 @@ class DataTable extends Component {
             borderBottom: 0,
             borderRadius: '4px 4px 0px 0px',
             background: '#F9FAFB',
+            overflow: 'auto',
           }}
           >
-            <Input
-              type='text'
-              placeholder='Search...'
-              value={this.state.searchInput}
-              onChange={this.onSearchInputChange}
-              size='medium'
-              icon='search'
-            />
+            {search && (
+              <Input
+                type='text'
+                placeholder='Search...'
+                value={this.state.searchInput}
+                onChange={this.onSearchInputChange}
+                size='medium'
+                icon='search'
+              />
+            )}
             {download && (
               <Button onClick={this.downloadReport} floated='right' color='blue'>
                 <Button.Content visible>
