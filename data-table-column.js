@@ -21,3 +21,4 @@ DataTableColumn.defaultProps = defaultProps
 
 
 export default DataTableColumn
+export { propTypes }

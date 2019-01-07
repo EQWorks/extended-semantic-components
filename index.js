@@ -5,8 +5,10 @@ import { Table, Pagination, Button, Icon, Input } from 'semantic-ui-react'
 import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
-import DataTableColumn from './data-table-column'
+import DataTableColumn, { propTypes as columnProps } from './data-table-column'
 
+
+const colPropKeys = Object.keys(columnProps)
 
 const propTypes = {
   data: PropTypes.array.isRequired,
@@ -126,7 +128,12 @@ class DataTable extends Component {
 
 
   render() {
-    const { data, download, search } = this.props
+    const {
+      // standard data-table props
+      data, download, search, children, defaultSortKey, downloadName,
+      // semantic table props pass-through
+      ...tableProps
+    } = this.props
     const { activePage, sortColumn, sortDirection, searchInput } = this.state
 
     // set unique row key
@@ -154,33 +161,35 @@ class DataTable extends Component {
     return (
       <div style={{ paddingBottom: '1rem' }}>
         <div style={{ width: '100%', overflowX: 'auto' }}>
-          <div style={{
-            padding: '8px',
-            border: '1px solid rgba(34, 36, 38, 0.15)',
-            borderBottom: 0,
-            borderRadius: '4px 4px 0px 0px',
-            background: '#F9FAFB',
-            overflow: 'auto',
-          }}
-          >
-            {search && (
-              <Input
-                type='text'
-                placeholder='Search...'
-                value={this.state.searchInput}
-                onChange={this.onSearchInputChange}
-                size='medium'
-                icon='search'
-              />
-            )}
-            {download && (
-              <Button onClick={this.downloadReport} floated='right' color='blue'>
-                <Button.Content visible>
-                  <Icon name='download' />
-                </Button.Content>
-              </Button>
-            )}
-          </div>
+          {(download || search) && (
+            <div style={{
+              padding: '8px',
+              border: '1px solid rgba(34, 36, 38, 0.15)',
+              borderBottom: 0,
+              borderRadius: '4px 4px 0px 0px',
+              background: '#F9FAFB',
+              overflow: 'auto',
+            }}
+            >
+              {search && (
+                <Input
+                  type='text'
+                  placeholder='Search...'
+                  value={this.state.searchInput}
+                  onChange={this.onSearchInputChange}
+                  size='medium'
+                  icon='search'
+                />
+              )}
+              {download && (
+                <Button onClick={this.downloadReport} floated='right' color='blue'>
+                  <Button.Content visible>
+                    <Icon name='download' />
+                  </Button.Content>
+                </Button>
+              )}
+            </div>
+          )}
           <Table
             sortable
             selectable
@@ -188,6 +197,7 @@ class DataTable extends Component {
               marginTop: 0,
               borderRadius: '0',
             }}
+            {...tableProps}
           >
             <Table.Header>
               <Table.Row>
@@ -204,11 +214,22 @@ class DataTable extends Component {
             <Table.Body>
               {paginatedData.map(row => (
                 <Table.Row key={row._id}>
-                  {columns.map(col => (
-                    <Table.Cell key={col.dataKey || col.name}>
-                      {this.renderCell(row, col)}
-                    </Table.Cell>
-                  ))}
+                  {columns.map((col) => {
+                    // split out generic ...celProps passed-through similar to ...tableProps
+                    const cellProps = { ...col }
+                    const colProps = {}
+                    colPropKeys.forEach((key) => {
+                      if (key in cellProps) {
+                        colProps[key] = cellProps[key]
+                        delete cellProps[key]
+                      }
+                    })
+                    return (
+                      <Table.Cell key={col.dataKey || col.name} {...cellProps}>
+                        {this.renderCell(row, colProps)}
+                      </Table.Cell>
+                    )
+                  })}
                 </Table.Row>
               ))}
             </Table.Body>
