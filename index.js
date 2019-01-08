@@ -44,14 +44,14 @@ class DataTable extends Component {
     let csvContent = 'data:text/csv;charset=utf-8,'
 
     headers.forEach((h) => {
-      csvContent += `${h},`
+      csvContent += `"${String(h).replace(/"/g, '""')}",`
     })
     csvContent = csvContent.slice(0, -1)
     csvContent += '\r\n'
 
     this.props.data.forEach((d) => {
       valueKeys.forEach((x) => {
-        csvContent += `${String(d[x]).replace(/,/g, '')},`
+        csvContent += `"${String(d[x]).replace(/"/g, '""')}",`
       })
       csvContent = csvContent.slice(0, -1)
       csvContent += '\r\n'
