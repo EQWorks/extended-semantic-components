@@ -30,14 +30,21 @@ const defaultProps = {
 const perPage = 9
 
 class DataTable extends Component {
-  state = {
-    activePage: 1,
-    sortColumn: this.props.defaultSortKey,
-    sortDirection: 'descending',
-    searchInput: '',
+  constructor(props) {
+    super(props)
+
+    const { defaultSortKey: sortColumn } = this.props
+    this.state = {
+      sortColumn,
+      activePage: 1,
+      sortDirection: 'descending',
+      searchInput: '',
+    }
   }
 
   downloadReport = () => {
+    const { data, downloadName } = this.props
+
     const headers = this.columns().map(c => c.name)
     const valueKeys = this.columns().map(c => c.dataKey)
 
@@ -49,7 +56,7 @@ class DataTable extends Component {
     csvContent = csvContent.slice(0, -1)
     csvContent += '\r\n'
 
-    this.props.data.forEach((d) => {
+    data.forEach((d) => {
       valueKeys.forEach((x) => {
         csvContent += `"${String(d[x]).replace(/"/g, '""')}",`
       })
@@ -60,7 +67,7 @@ class DataTable extends Component {
     const url = encodeURI(csvContent)
     const link = document.createElement('a')
     link.setAttribute('href', url)
-    link.setAttribute('download', `${this.props.downloadName}.csv`)
+    link.setAttribute('download', `${downloadName}.csv`)
     document.body.appendChild(link)
 
     link.click()
@@ -68,7 +75,8 @@ class DataTable extends Component {
   }
 
   columns() {
-    return (Array.isArray(this.props.children) ? this.props.children : [this.props.children])
+    const { children } = this.props
+    return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => c.props)
   }
@@ -78,11 +86,12 @@ class DataTable extends Component {
   }
 
   handleSort = column => () => {
-    if (column === this.state.sortColumn) {
+    const { sortColumn, sortDirection } = this.state
+    if (column === sortColumn) {
       this.setState({
         activePage: 1,
         sortDirection:
-          this.state.sortDirection === 'ascending' ? 'descending' : 'ascending',
+          sortDirection === 'ascending' ? 'descending' : 'ascending',
       })
     } else {
       this.setState({
@@ -94,16 +103,18 @@ class DataTable extends Component {
   }
 
   getFilteredData() {
-    const text = this.state.searchInput.toLowerCase()
+    const { data } = this.props
+    const { searchInput } = this.state
+    const text = searchInput.toLowerCase()
     const searchables = this.columns()
       .filter(c => c.searchable)
       .map(c => c.dataKey)
 
     if (searchables.length === 0) {
-      return this.props.data
+      return data
     }
 
-    return this.props.data
+    return data
       .filter(row => (searchables
         .find(c => row[c].toLowerCase().includes(text))))
   }
@@ -125,7 +136,6 @@ class DataTable extends Component {
 
     return row[col.dataKey]
   }
-
 
   render() {
     const {
@@ -175,7 +185,7 @@ class DataTable extends Component {
                 <Input
                   type='text'
                   placeholder='Search...'
-                  value={this.state.searchInput}
+                  value={searchInput}
                   onChange={this.onSearchInputChange}
                   size='medium'
                   icon='search'
@@ -206,7 +216,8 @@ class DataTable extends Component {
                     key={col.dataKey || col.name}
                     onClick={this.handleSort(col.dataKey)}
                     sorted={sortColumn === col.dataKey ? sortDirection : null}
-                  >{col.name}
+                  >
+                    {col.name}
                   </Table.HeaderCell>
                 ))}
               </Table.Row>

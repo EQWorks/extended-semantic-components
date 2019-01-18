@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'
 import moment from 'moment-timezone'
 
 import SemanticDatePicker from '../../components/semantic-date-picker'
-import { render } from '../../utils'
+import { render } from '../utils'
 
 
 const defaultProps = {

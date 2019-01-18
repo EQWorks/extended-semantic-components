@@ -6,22 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "lint": "./node_modules/.bin/eslint components/. stories/.",
-    "lint:fix": "./node_modules/.bin/eslint components/. stories/. --fix"
+    "lint": "eslint components/. stories/.",
+    "lint:fix": "eslint components/. stories/. --fix"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@storybook/addon-actions": "^3.4.8",
     "@storybook/react": "^3.4.8",
+    "lodash": "^4.17.11",
     "moment-timezone": "^0.5.21",
+    "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
-    "react": "^16.4.1",
     "react-dates": "^17.1.1",
-    "react-dom": "^16.4.1",
-    "react-moment-proptypes": "^1.6.0",
-    "semantic-ui-css": "^2.3.3",
-    "semantic-ui-react": "^0.82.0"
+    "react-moment-proptypes": "^1.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.0.0",
@@ -32,6 +30,16 @@
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.10.0"
+    "eslint-plugin-react": "^7.10.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "semantic-ui-css": "^2.3.3",
+    "semantic-ui-react": "^0.82.0"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "semantic-ui-css": "^2.3.3",
+    "semantic-ui-react": "^0.82.0"
   }
 }
