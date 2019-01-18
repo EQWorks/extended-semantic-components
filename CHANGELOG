@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Rename `semantic-date-picker` to `date-picker` for consistency and conciseness.
 
-## [1.5.3] - 2019-01-18
+## [1.5.4] - 2019-01-18
 ### Added
 - Initial version of `data-table` component.
 
