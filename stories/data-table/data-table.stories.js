@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import { DataTable } from '../..'
+import { DataTable } from '../../src'
 import { render } from '../utils'
 
 

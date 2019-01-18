@@ -1,20 +1,21 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "1.5.4",
+  "version": "2.0.0",
   "description": "A collection of custom Semantic UI React components",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf publish && parcel build ./index.js --out-dir publish --no-minify",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "lint": "eslint components/. stories/.",
-    "lint:fix": "eslint components/. stories/. --fix",
+    "build": "rimraf publish && parcel build ./src/index.js --out-dir publish",
+    "storybook": "start-storybook -p 9001",
+    "lint": "eslint src/. stories/.",
+    "lint:fix": "eslint src/. stories/. --fix",
     "package-clean": "sed -i -e 's/http:\\/\\//https:\\/\\//g' package-lock.json",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "build-storybook": "build-storybook"
   },
   "main": "publish/index.js",
-  "source": "index.js",
+  "source": "src/index.js",
   "files": [
-    "components",
+    "publish",
     "README.md"
   ],
   "author": "dev@eqworks.com",
@@ -29,12 +30,10 @@
     "moment-timezone": "^0.5.21",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
-    "react-dates": "^17.1.1",
+    "react-dates": "^17.2.0",
     "react-moment-proptypes": "^1.6.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.4.8",
-    "@storybook/react": "^3.4.8",
     "autoprefixer": "^9.0.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
@@ -54,12 +53,16 @@
     "react-dom": "^16.7.0",
     "rimraf": "^2.6.3",
     "semantic-ui-css": "^2.3.3",
-    "semantic-ui-react": "^0.82.0"
+    "semantic-ui-react": "^0.82.0",
+    "@storybook/react": "^4.1.7",
+    "@storybook/addon-actions": "^4.1.7",
+    "@storybook/addon-links": "^4.1.7",
+    "@storybook/addons": "^4.1.7",
+    "babel-loader": "^7.1.5"
   },
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.82.0"
   }
 }
