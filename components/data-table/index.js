@@ -81,6 +81,12 @@ class DataTable extends Component {
       .map(c => c.props)
   }
 
+  searchables() {
+    return this.columns()
+      .filter(c => c.searchable)
+      .map(c => c.dataKey)
+  }
+
   onPageChange = (_, { activePage }) => {
     this.setState({ activePage })
   }
@@ -106,9 +112,7 @@ class DataTable extends Component {
     const { data } = this.props
     const { searchInput } = this.state
     const text = searchInput.toLowerCase()
-    const searchables = this.columns()
-      .filter(c => c.searchable)
-      .map(c => c.dataKey)
+    const searchables = this.searchables()
 
     if (searchables.length === 0) {
       return data
@@ -154,6 +158,7 @@ class DataTable extends Component {
     })
 
     // searching
+    const searchables = this.searchables()
     const filteredData = searchInput && searchInput.length > 2
       ? this.getFilteredData()
       : data
@@ -181,7 +186,7 @@ class DataTable extends Component {
               overflow: 'auto',
             }}
             >
-              {search && (
+              {search && searchables.length > 0 && (
                 <Input
                   type='text'
                   placeholder='Search...'
