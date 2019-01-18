@@ -15,7 +15,7 @@ And within your project
 const {
   SemanticDatePicker,
   DataTable,
-} = import 'extended-semantic-components'
+} = import '@eqworks/extended-semantic-components'
 ```
 
 ### Usage Demo and Examples

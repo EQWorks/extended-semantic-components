@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "A collection of custom Semantic UI React components",
   "main": "index.js",
   "scripts": {
