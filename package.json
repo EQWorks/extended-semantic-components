@@ -1,13 +1,15 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "lint": "eslint components/. stories/.",
-    "lint:fix": "eslint components/. stories/. --fix"
+    "lint:fix": "eslint components/. stories/. --fix",
+    "package-clean": "sed -i -e 's/http:\\/\\//https:\\/\\//g' package-lock.json",
+    "postinstall": "npm run package-clean"
   },
   "author": "",
   "license": "ISC",
