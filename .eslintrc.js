@@ -74,7 +74,16 @@ module.exports = {
     'jsx-a11y/mouse-events-have-key-events': 'off',
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/*.test.js', '**/*.spec.js', '**/setup-jest.js', 'webpack.**.config.js'] },
+      {
+        devDependencies: [
+          '**/*.test.js',
+          '**/*.spec.js',
+          '**/setup-jest.js',
+          'webpack.**.config.js',
+          '.storybook/**',
+          'stories/**',
+        ],
+      },
     ],
     'import/newline-after-import': ['error', { count: 2 }],
     'jsx-a11y/label-has-for': 'off',

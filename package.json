@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A collection of custom Semantic UI React components",
   "main": "index.js",
   "scripts": {
@@ -12,14 +12,17 @@
   },
   "author": "dev@eqworks.com",
   "license": "MIT",
+  "source": "index.js",
+  "files": [
+    "components",
+    "README.md"
+  ],
   "keywords": [
     "react",
     "components",
     "semantic-ui"
   ],
   "dependencies": {
-    "@storybook/addon-actions": "^3.4.8",
-    "@storybook/react": "^3.4.8",
     "lodash": "^4.17.11",
     "moment-timezone": "^0.5.21",
     "numeral": "^2.0.6",
@@ -28,6 +31,8 @@
     "react-moment-proptypes": "^1.6.0"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/react": "^3.4.8",
     "autoprefixer": "^9.0.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
@@ -37,14 +42,14 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.82.0"
   },
   "peerDependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.82.0"
   }
