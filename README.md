@@ -12,7 +12,10 @@ $ npm install @eqworks/extended-semantic-components
 And within your project
 
 ```
-const { SemanticDatePicker, DataTable } = import 'extended-semantic-components'
+const {
+  SemanticDatePicker,
+  DataTable,
+} = import 'extended-semantic-components'
 ```
 
 ### Usage Demo and Examples

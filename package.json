@@ -1,18 +1,22 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "1.5.0",
-  "description": "",
+  "version": "1.5.1",
+  "description": "A collection of custom Semantic UI React components",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "lint": "eslint components/. stories/.",
     "lint:fix": "eslint components/. stories/. --fix",
-    "package-clean": "sed -i -e 's/http:\\/\\//https:\\/\\//g' package-lock.json",
-    "postinstall": "npm run package-clean"
+    "package-clean": "sed -i -e 's/http:\\/\\//https:\\/\\//g' package-lock.json"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "dev@eqworks.com",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "components",
+    "semantic-ui"
+  ],
   "dependencies": {
     "@storybook/addon-actions": "^3.4.8",
     "@storybook/react": "^3.4.8",
