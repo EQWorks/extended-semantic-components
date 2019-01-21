@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A collection of custom Semantic UI React components",
   "repository": {
     "type": "git",
@@ -9,16 +9,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf production && parcel build ./src/index.js --out-dir publish",
+    "transpile": "babel src --out-dir dist --copy-files",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "package-clean": "sed -i -e 's/http:\\/\\//https:\\/\\//g' package-lock.json",
-    "prepublishOnly": "npm run build",
-    "transpile": "babel src --out-dir dist --copy-files"
+    "prepublishOnly": "npm run transpile"
   },
-  "main": "publish/index.js",
+  "main": "dist/index.js",
   "source": "src/index.js",
   "files": [
-    "publish",
+    "dist",
     "README.md"
   ],
   "author": "dev@eqworks.com",
@@ -40,7 +40,9 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
+    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.19.1",
