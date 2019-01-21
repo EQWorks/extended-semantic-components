@@ -17,7 +17,3 @@ const {
   DataTable,
 } = import '@eqworks/extended-semantic-components'
 ```
-
-### Usage Demo and Examples
-
-Clone this repo and run `npm run storybook` to see these components in action.

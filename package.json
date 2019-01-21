@@ -1,16 +1,19 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A collection of custom Semantic UI React components",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EQWorks/Extended-Semantic-Components.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf publish && parcel build ./src/index.js --out-dir publish",
-    "storybook": "start-storybook -p 9001",
-    "lint": "eslint src/. stories/.",
-    "lint:fix": "eslint src/. stories/. --fix",
+    "build": "rimraf production && parcel build ./src/index.js --out-dir publish",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "package-clean": "sed -i -e 's/http:\\/\\//https:\\/\\//g' package-lock.json",
     "prepublishOnly": "npm run build",
-    "build-storybook": "build-storybook"
+    "transpile": "babel src --out-dir dist --copy-files"
   },
   "main": "publish/index.js",
   "source": "src/index.js",
@@ -27,22 +30,19 @@
   ],
   "dependencies": {
     "lodash": "^4.17.11",
-    "moment-timezone": "^0.5.21",
+    "moment": "^2.23.0",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
     "react-dates": "^17.2.0",
     "react-moment-proptypes": "^1.6.0"
   },
   "devDependencies": {
-    "autoprefixer": "^9.0.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "css-loader": "^1.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
@@ -52,17 +52,11 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "rimraf": "^2.6.3",
-    "semantic-ui-css": "^2.3.3",
-    "semantic-ui-react": "^0.82.0",
-    "@storybook/react": "^4.1.7",
-    "@storybook/addon-actions": "^4.1.7",
-    "@storybook/addon-links": "^4.1.7",
-    "@storybook/addons": "^4.1.7",
-    "babel-loader": "^7.1.5"
+    "semantic-ui-react": "^0.83.0"
   },
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "semantic-ui-react": "^0.82.0"
+    "semantic-ui-react": "^0.83.0"
   }
 }

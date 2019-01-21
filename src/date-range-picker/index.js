@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { momentObj } from 'react-moment-proptypes'
 
 import { Button, Popup } from 'semantic-ui-react'
-// TODO: take this out and make it a standalone open-source NPM package
 import { DayPickerRangeController } from 'react-dates'
 import moment from 'moment'
 
@@ -84,11 +83,13 @@ class DateRangePicker extends Component {
   }
 
   onDatesChange = ({ startDate, endDate }) => {
+    const { endDate: _end } = this.state
+    const { onSelection } = this.props
     const endStart = moment(endDate).startOf('day')
-    const currEndStart = moment(this.state.endDate).startOf('day')
+    const currEndStart = moment(_end).startOf('day')
     if (!(endDate === null || endStart.isSame(currEndStart))) {
       this.close()
-      this.props.onSelection({ startDate, endDate })
+      onSelection({ startDate, endDate })
     }
     this.setState({ startDate, endDate })
   }
@@ -123,9 +124,9 @@ class DateRangePicker extends Component {
     const { startDate, endDate } = this.state
     const endDateString = endDate ? endDate.format('ll') : 'Select End Date'
 
-    const durationString = startDate ?
-      `${(startDate.format('ll'))} \u2192 ${endDateString}` :
-      'Select Date Range'
+    const durationString = startDate
+      ? `${(startDate.format('ll'))} \u2192 ${endDateString}`
+      : 'Select Date Range'
 
     return (
       <Button
@@ -157,6 +158,7 @@ class DateRangePicker extends Component {
 
   render() {
     const { position } = this.props
+    const { isOpen } = this.state
 
     return (
       <Popup
@@ -166,7 +168,7 @@ class DateRangePicker extends Component {
         on='click'
         onOpen={this.onOpen}
         onClose={this.close}
-        open={this.state.isOpen}
+        open={isOpen}
         position={position}
         style={{ maxWidth: '800px' }}
       />
