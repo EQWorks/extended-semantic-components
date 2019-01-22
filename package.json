@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "2.0.2",
+  "version": "2.1.0-alpha.0",
   "description": "A collection of custom Semantic UI React components",
   "repository": {
     "type": "git",
@@ -8,12 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf production && parcel build ./src/index.js --out-dir publish",
-    "transpile": "babel src --out-dir dist --copy-files",
+    "transpile": "rimraf dist && babel src --out-dir dist --copy-files",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "package-clean": "sed -i -e 's/http:\\/\\//https:\\/\\//g' package-lock.json",
-    "prepublishOnly": "npm run transpile"
+    "prepublishOnly": "yarn transpile"
   },
   "main": "dist/index.js",
   "source": "src/index.js",
@@ -39,18 +36,15 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
-    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-eslint": "^8.2.6",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "parcel": "^1.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "rimraf": "^2.6.3",

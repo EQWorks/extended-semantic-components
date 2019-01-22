@@ -5,10 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Toggleable columns for `DataTable`.
+
+### Changed
+- Yarn based lock.
+
+## [2.0.2] - 2019-01-21
+### Changed
+- Pure Babel based transpile instead of Parcel based build for `npm publish`.
 
 ## [2.0.1] - 2019-01-21
 ### Changed
-- Parcel based build
+- Parcel based build.
 
 ### Removed
 - Storybook demo (will be done through Netlify host soon)
