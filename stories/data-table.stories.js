@@ -10,7 +10,7 @@ import { DataTable } from '../src'
 const monsters = [
   { name: 'Godzilla', origin: 'Earth' },
   { name: 'Ghidorah', origin: '???' },
-  { name: 'Lugia', origin: 'Pokémon' },
+  { name: 'Lugia', origin: 'Pokémon Universe' },
 ]
 
 storiesOf('DataTable', module)
@@ -24,6 +24,23 @@ storiesOf('DataTable', module)
         <DataTable.Column
           name='Origin'
           dataKey='origin'
+        />
+      </DataTable>
+    </Container>
+  ))
+  .add('Toggleable Columns', () => (
+    <Container>
+      <DataTable data={monsters}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+          pickable
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+          searchable
+          pickable
         />
       </DataTable>
     </Container>
