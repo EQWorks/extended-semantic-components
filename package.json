@@ -10,7 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "transpile": "rimraf dist && babel src --out-dir dist --copy-files",
     "lint": "eslint src",
-    "prepublishOnly": "yarn transpile"
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -o docs",
+    "serve-storybook": "serve docs",
+    "prepublishOnly": "yarn transpile && yarn build-storybook"
   },
   "main": "dist/index.js",
   "source": "src/index.js",
@@ -34,9 +37,15 @@
     "react-moment-proptypes": "^1.6.0"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^4.1.7",
+    "@storybook/addon-info": "^4.1.7",
+    "@storybook/addon-links": "^4.1.7",
+    "@storybook/addons": "^4.1.7",
+    "@storybook/react": "^4.1.7",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
+    "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -48,7 +57,9 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "rimraf": "^2.6.3",
-    "semantic-ui-react": "^0.83.0"
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.83.0",
+    "serve": "^10.1.1"
   },
   "peerDependencies": {
     "react": "^16.7.0",

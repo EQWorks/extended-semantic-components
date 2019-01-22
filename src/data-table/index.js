@@ -176,7 +176,7 @@ class DataTable extends Component {
     return (
       <div style={{ paddingBottom: '1rem' }}>
         <div style={{ width: '100%', overflowX: 'auto' }}>
-          {(download || search) && (
+          {(download || search && searchables.length > 0) && (
             <div style={{
               padding: '8px',
               border: '1px solid rgba(34, 36, 38, 0.15)',
