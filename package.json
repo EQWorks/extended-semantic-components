@@ -12,7 +12,7 @@
     "lint": "eslint src",
     "storybook": "start-storybook -p 6006",
     "deploy-storybook": "storybook-to-ghpages",
-    "prepublishOnly": "yarn transpile && yarn build-storybook"
+    "prepublishOnly": "yarn transpile"
   },
   "main": "dist/index.js",
   "source": "src/index.js",
