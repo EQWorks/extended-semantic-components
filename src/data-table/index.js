@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { Table, Pagination, Button, Icon, Input, Form } from 'semantic-ui-react'
+import { Table, Pagination, Button, Form } from 'semantic-ui-react'
 import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
@@ -16,18 +16,16 @@ const propTypes = {
   defaultSortKey: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
-  search: PropTypes.bool,
+  perPage: PropTypes.number,
 }
 
 const defaultProps = {
   defaultSortKey: '',
   downloadName: 'Table',
   download: true,
-  search: true,
+  perPage: 9,
 }
 
-
-const perPage = 9
 
 class DataTable extends Component {
   constructor(props) {
@@ -91,7 +89,7 @@ class DataTable extends Component {
   pickedColumns = () => {
     const { picked } = this.state
 
-    return this.columns().filter(c => !c.pickable || c.pickable && picked.includes(c.name))
+    return this.columns().filter(c => !c.pickable || (c.pickable && picked.includes(c.name)))
   }
 
   onPageChange = (_, { activePage }) => {
@@ -119,7 +117,7 @@ class DataTable extends Component {
     const { picked } = this.state
 
     if (picked.includes(name)) {
-      this.setState({ picked: picked.filter(c => c !== name)})
+      this.setState({ picked: picked.filter(c => c !== name) })
     } else {
       this.setState({ picked: [...picked, name] })
     }
@@ -159,7 +157,7 @@ class DataTable extends Component {
   render() {
     const {
       // standard data-table props
-      data, download, search, children, defaultSortKey, downloadName,
+      data, download, perPage,
       // semantic table props pass-through
       ...tableProps
     } = this.props
@@ -194,7 +192,7 @@ class DataTable extends Component {
     return (
       <div style={{ marginTop: '1em', paddingBottom: '1em' }}>
         <div style={{ width: '100%', overflowX: 'auto' }}>
-          {(download || search && searchables.length > 0) && (
+          {(download || searchables.length > 0) && (
             <div style={{
               padding: '8px',
               border: '1px solid rgba(34, 36, 38, 0.15)',
@@ -205,7 +203,7 @@ class DataTable extends Component {
             }}
             >
               <Form size='mini'>
-                {search && searchables.length > 0 && (
+                {searchables.length > 0 && (
                   <Form.Input
                     type='text'
                     placeholder='Search...'

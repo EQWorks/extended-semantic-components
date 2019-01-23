@@ -28,7 +28,37 @@ storiesOf('DataTable', module)
       </DataTable>
     </Container>
   ))
-  .add('Toggleable Columns', () => (
+  .add('Custom Download Name', () => (
+    <Container>
+      <DataTable data={monsters} downloadName='monsters'>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+        />
+      </DataTable>
+    </Container>
+  ))
+  .add('Searchable Columns', () => (
+    <Container>
+      <DataTable data={monsters}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+          searchable
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+          searchable
+        />
+      </DataTable>
+    </Container>
+  ))
+  .add('Pickable Columns', () => (
     <Container>
       <DataTable data={monsters}>
         <DataTable.Column
@@ -39,7 +69,6 @@ storiesOf('DataTable', module)
         <DataTable.Column
           name='Origin'
           dataKey='origin'
-          searchable
           pickable
         />
       </DataTable>
