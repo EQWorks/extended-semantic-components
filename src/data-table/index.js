@@ -204,40 +204,40 @@ class DataTable extends Component {
               overflow: 'auto',
             }}
             >
-              <Form>
-                <Form.Group>
-                  {search && searchables.length > 0 && (
-                    <Form.Input
-                      type='text'
-                      placeholder='Search...'
-                      value={searchInput}
-                      onChange={this.onSearchInputChange}
-                      size='medium'
-                      icon='search'
-                    />
-                  )}
+              <Form size='mini'>
+                {search && searchables.length > 0 && (
+                  <Form.Input
+                    type='text'
+                    placeholder='Search...'
+                    value={searchInput}
+                    onChange={this.onSearchInputChange}
+                    size='medium'
+                    icon='search'
+                  />
+                )}
+                <div>
                   {pickables.length > 0 && (
-                    <Form.Field>
-                      <Button.Group>
-                        {pickables.map(name => (
-                          <Button
-                            key={name}
-                            content={name}
-                            primary={picked.includes(name)}
-                            onClick={this.handlePick(name)}
-                          />
-                        ))}
-                      </Button.Group>
-                    </Form.Field>
+                    <Button.Group size='mini'>
+                      {pickables.map(name => (
+                        <Button
+                          key={name}
+                          content={name}
+                          primary={picked.includes(name)}
+                          onClick={this.handlePick(name)}
+                        />
+                      ))}
+                    </Button.Group>
                   )}
                   {download && (
-                    <Form.Button
+                    <Button
+                      floated='right'
+                      size='mini'
                       onClick={this.downloadReport}
                       color='blue'
                       icon='download'
                     />
                   )}
-                </Form.Group>
+                </div>
               </Form>
             </div>
           )}
