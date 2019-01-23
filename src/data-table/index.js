@@ -10,12 +10,16 @@ import DataTableColumn, { propTypes as columnProps } from './data-table-column'
 
 const colPropKeys = Object.keys(columnProps)
 
+const childrenColumnCheck = (props, propName, componentName) => {
+  if ((!props.children && !props.columns) || (props.children && props.columns)) {
+    return new Error(`Only one of 'children' or 'columns' is allowed in '${componentName}'`)
+  }
+}
+
 const propTypes = {
   data: PropTypes.array.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.array,
-  ]).isRequired,
+  children: childrenColumnCheck,
+  columns: childrenColumnCheck,
   defaultSortKey: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
@@ -78,7 +82,11 @@ class DataTable extends Component {
   }
 
   columns = () => {
-    const { children } = this.props
+    const { children, columns } = this.props
+
+    if (Array.isArray(columns) && columns.length > 0) {
+      return columns
+    }
 
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')

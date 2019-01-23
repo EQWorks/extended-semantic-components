@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Pickable columns for `DataTable`.
 - `DataTable` property `perPage` for maximum number of rows per page when pagination is triggered, defaults to its previously hardcoded value 9.
+- `DataTable` property `columns` as an alternative of `children` (`DataTable.Column`) for a simpler way to define composable columns through simple Array manipulations. Only one of `children` or `columns` property is allowed.
 
 ### Changed
 - Zero searchable columns would be used to determine whether to render `DataTable` control section (along with existing ones).
@@ -15,7 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - `DataTable`: Search when cell data is `null` or `undefined`.
-- `DataTable`: Allow array type for children prop.
 
 ### Removed
 - `search` property for `DataTable` is no longer effective. Use `searchable` for `DataTable.Column` instead. This is not considered to be a breaking change since they were meant to be used in conjunction.
