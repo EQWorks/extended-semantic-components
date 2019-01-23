@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Zero searchable columns would be used to determine whether to render `DataTable` control section (along with existing ones).
 - Yarn based lock.
 
+### Fixed
+- Search when cell data is `null` or `undefined`.
+
 ### Removed
 - `search` property for `DataTable` is no longer effective. Use `searchable` for `DataTable.Column` instead. This is not considered to be a breaking change since they were meant to be used in conjunction.
 
