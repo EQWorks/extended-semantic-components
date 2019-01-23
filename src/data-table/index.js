@@ -166,12 +166,13 @@ class DataTable extends Component {
   }
 
   render() {
-    const {
-      // standard data-table props
-      data, download, perPage,
-      // semantic table props pass-through
-      ...tableProps
-    } = this.props
+    const { data, download, perPage } = this.props
+    const tableProps = Object.entries(this.props)
+      .filter(([key]) => !Object.keys(propTypes).includes(key))
+      .reduce((acc, [key, value]) => {
+        acc[key] = value
+        return acc
+      }, {})
     const { activePage, sortColumn, sortDirection, searchInput, picked } = this.state
 
     // set unique row key
