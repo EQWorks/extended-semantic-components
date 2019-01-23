@@ -11,8 +11,7 @@
     "transpile": "rimraf dist && babel src --out-dir dist --copy-files",
     "lint": "eslint src",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "rimraf docs && build-storybook -o docs",
-    "serve-storybook": "serve docs",
+    "deploy-storybook": "storybook-to-ghpages",
     "prepublishOnly": "yarn transpile && yarn build-storybook"
   },
   "main": "dist/index.js",
@@ -42,6 +41,7 @@
     "@storybook/addon-links": "^4.1.7",
     "@storybook/addons": "^4.1.7",
     "@storybook/react": "^4.1.7",
+    "@storybook/storybook-deployer": "^2.8.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
@@ -55,8 +55,7 @@
     "react-dom": "^16.7.0",
     "rimraf": "^2.6.3",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.83.0",
-    "serve": "^10.1.1"
+    "semantic-ui-react": "^0.83.0"
   },
   "peerDependencies": {
     "react": "^16.7.0",
