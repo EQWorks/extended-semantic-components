@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Yarn based lock.
 
 ### Fixed
-- Search when cell data is `null` or `undefined`.
+- `DataTable`: Search when cell data is `null` or `undefined`.
+- `DataTable`: Allow array type for children prop.
 
 ### Removed
 - `search` property for `DataTable` is no longer effective. Use `searchable` for `DataTable.Column` instead. This is not considered to be a breaking change since they were meant to be used in conjunction.

@@ -12,7 +12,10 @@ const colPropKeys = Object.keys(columnProps)
 
 const propTypes = {
   data: PropTypes.array.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.array,
+  ]).isRequired,
   defaultSortKey: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
