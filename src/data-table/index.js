@@ -144,7 +144,8 @@ class DataTable extends Component {
       return data
     }
 
-    return data.filter(row => (searchables.find(c => (row[c] || '').toLowerCase().includes(text))))
+    return data
+      .filter(row => (searchables.find(c => String(row[c] || '').toLowerCase().includes(text))))
   }
 
   onSearchInputChange = (_, { value }) => {

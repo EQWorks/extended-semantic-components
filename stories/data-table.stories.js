@@ -77,8 +77,18 @@ storiesOf('DataTable', module)
   .add('Columns property', () => (
     <Container>
       <DataTable data={monsters} columns={[
-        { name: 'Name', dataKey: 'name', pickable: true },
-        { name: 'Origin', dataKey: 'origin', pickable: true },
+        {
+          name: 'Name',
+          dataKey: 'name',
+          pickable: true,
+          searchable: true,
+        },
+        {
+          name: 'Origin',
+          dataKey: 'origin',
+          pickable: true,
+          searchable: true,
+        },
       ]} />
     </Container>
   ))
