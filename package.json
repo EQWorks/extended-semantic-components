@@ -7,12 +7,12 @@
     "url": "https://github.com/EQWorks/Extended-Semantic-Components.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "yarn lint && yarn transpile",
     "transpile": "rimraf dist && babel src --out-dir dist --copy-files",
     "lint": "eslint src",
     "storybook": "start-storybook -p 6006",
     "deploy-storybook": "storybook-to-ghpages",
-    "prepublishOnly": "yarn transpile"
+    "prepublishOnly": "yarn test"
   },
   "main": "dist/index.js",
   "source": "src/index.js",
