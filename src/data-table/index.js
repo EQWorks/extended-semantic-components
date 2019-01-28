@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { Table, Pagination, Button, Icon, Input } from 'semantic-ui-react'
+import { Table, Pagination, Button, Form } from 'semantic-ui-react'
 import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
@@ -10,35 +10,42 @@ import DataTableColumn, { propTypes as columnProps } from './data-table-column'
 
 const colPropKeys = Object.keys(columnProps)
 
+const childrenColumnCheck = (props, propName, componentName) => {
+  if ((!props.children && !props.columns) || (props.children && props.columns)) {
+    return new Error(`Only one of 'children' or 'columns' is allowed in '${componentName}'`)
+  }
+}
+
 const propTypes = {
   data: PropTypes.array.isRequired,
-  children: PropTypes.node.isRequired,
+  children: childrenColumnCheck,
+  columns: childrenColumnCheck,
   defaultSortKey: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
-  search: PropTypes.bool,
+  perPage: PropTypes.number,
 }
 
 const defaultProps = {
   defaultSortKey: '',
   downloadName: 'Table',
   download: true,
-  search: true,
+  perPage: 9,
 }
 
-
-const perPage = 9
 
 class DataTable extends Component {
   constructor(props) {
     super(props)
 
     const { defaultSortKey: sortColumn } = this.props
+    const picked = this.pickables()
     this.state = {
       sortColumn,
       activePage: 1,
       sortDirection: 'descending',
       searchInput: '',
+      picked,
     }
   }
 
@@ -74,17 +81,26 @@ class DataTable extends Component {
     link.remove()
   }
 
-  columns() {
-    const { children } = this.props
+  columns = () => {
+    const { children, columns } = this.props
+
+    if (Array.isArray(columns) && columns.length > 0) {
+      return columns
+    }
+
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => c.props)
   }
 
-  searchables() {
-    return this.columns()
-      .filter(c => c.searchable)
-      .map(c => c.dataKey)
+  searchables = () => this.columns().filter(c => c.searchable).map(c => c.dataKey)
+
+  pickables = () => this.columns().filter(c => c.pickable).map(c => c.name)
+
+  pickedColumns = () => {
+    const { picked } = this.state
+
+    return this.columns().filter(c => !c.pickable || (c.pickable && picked.includes(c.name)))
   }
 
   onPageChange = (_, { activePage }) => {
@@ -108,6 +124,16 @@ class DataTable extends Component {
     }
   }
 
+  handlePick = name => () => {
+    const { picked } = this.state
+
+    if (picked.includes(name)) {
+      this.setState({ picked: picked.filter(c => c !== name) })
+    } else {
+      this.setState({ picked: [...picked, name] })
+    }
+  }
+
   getFilteredData() {
     const { data } = this.props
     const { searchInput } = this.state
@@ -119,8 +145,7 @@ class DataTable extends Component {
     }
 
     return data
-      .filter(row => (searchables
-        .find(c => row[c].toLowerCase().includes(text))))
+      .filter(row => (searchables.find(c => String(row[c] || '').toLowerCase().includes(text))))
   }
 
   onSearchInputChange = (_, { value }) => {
@@ -142,13 +167,14 @@ class DataTable extends Component {
   }
 
   render() {
-    const {
-      // standard data-table props
-      data, download, search, children, defaultSortKey, downloadName,
-      // semantic table props pass-through
-      ...tableProps
-    } = this.props
-    const { activePage, sortColumn, sortDirection, searchInput } = this.state
+    const { data, download, perPage } = this.props
+    const tableProps = Object.entries(this.props)
+      .filter(([key]) => !Object.keys(propTypes).includes(key))
+      .reduce((acc, [key, value]) => {
+        acc[key] = value
+        return acc
+      }, {})
+    const { activePage, sortColumn, sortDirection, searchInput, picked } = this.state
 
     // set unique row key
     let id = 0
@@ -171,12 +197,15 @@ class DataTable extends Component {
     const totalPages = Math.ceil(sortedData.length / perPage)
     const paginatedData = sortedData.filter((d, i) => i >= (offset - perPage) && i < offset)
 
-    const columns = this.columns()
+    // pick/toggle
+    const pickables = this.pickables()
+
+    const columns = this.pickedColumns()
 
     return (
-      <div style={{ paddingBottom: '1rem' }}>
+      <div style={{ marginTop: '1em', paddingBottom: '1em' }}>
         <div style={{ width: '100%', overflowX: 'auto' }}>
-          {(download || search) && (
+          {(download || searchables.length > 0) && (
             <div style={{
               padding: '8px',
               border: '1px solid rgba(34, 36, 38, 0.15)',
@@ -186,32 +215,47 @@ class DataTable extends Component {
               overflow: 'auto',
             }}
             >
-              {search && searchables.length > 0 && (
-                <Input
-                  type='text'
-                  placeholder='Search...'
-                  value={searchInput}
-                  onChange={this.onSearchInputChange}
-                  size='medium'
-                  icon='search'
-                />
-              )}
-              {download && (
-                <Button onClick={this.downloadReport} floated='right' color='blue'>
-                  <Button.Content visible>
-                    <Icon name='download' />
-                  </Button.Content>
-                </Button>
-              )}
+              <Form size='mini'>
+                {searchables.length > 0 && (
+                  <Form.Input
+                    type='text'
+                    placeholder='Search...'
+                    value={searchInput}
+                    onChange={this.onSearchInputChange}
+                    size='medium'
+                    icon='search'
+                  />
+                )}
+                <div>
+                  {pickables.length > 0 && (
+                    <Button.Group size='mini'>
+                      {pickables.map(name => (
+                        <Button
+                          key={name}
+                          content={name}
+                          primary={picked.includes(name)}
+                          onClick={this.handlePick(name)}
+                        />
+                      ))}
+                    </Button.Group>
+                  )}
+                  {download && (
+                    <Button
+                      floated='right'
+                      size='mini'
+                      onClick={this.downloadReport}
+                      color='blue'
+                      icon='download'
+                    />
+                  )}
+                </div>
+              </Form>
             </div>
           )}
           <Table
             sortable
             selectable
-            style={{
-              marginTop: 0,
-              borderRadius: '0',
-            }}
+            style={{ marginTop: 0, borderRadius: 0 }}
             {...tableProps}
           >
             <Table.Header>
