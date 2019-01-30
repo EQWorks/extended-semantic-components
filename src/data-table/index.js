@@ -21,7 +21,7 @@ const propTypes = {
   children: childrenColumnCheck,
   columns: childrenColumnCheck,
   defaultSortKey: PropTypes.string,
-  /** one of ['descending', 'descending'] */
+  /** one of ['descending', 'ascending'] */
   defaultSortDirection: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
