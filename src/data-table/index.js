@@ -41,12 +41,16 @@ class DataTable extends Component {
   constructor(props) {
     super(props)
 
-    const { defaultSortKey: sortColumn } = this.props
+    const {
+      defaultSortKey: sortColumn,
+      defaultSortDirection: sortDirection,
+    } = props
+
     const picked = this.pickables()
     this.state = {
       sortColumn,
+      sortDirection,
       activePage: 1,
-      sortDirection: props.defaultSortDirection,
       searchInput: '',
       picked,
     }
