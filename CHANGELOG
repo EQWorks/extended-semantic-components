@@ -9,10 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pickable columns for `DataTable`.
 - `DataTable` property `perPage` for maximum number of rows per page when pagination is triggered, defaults to its previously hardcoded value 9.
 - `DataTable` property `columns` as an alternative of `children` (`DataTable.Column`) for a simpler way to define composable columns through simple Array manipulations. Only one of `children` or `columns` property is allowed.
+- `DataTable` property `defaultSortDir` to specify starting sort direction
+- `DataTableColumn` properties `sortable` (default is `false`) and `sortType` (default is `basic`) added
 
 ### Changed
 - Zero searchable columns would be used to determine whether to render `DataTable` control section (along with existing ones).
 - Yarn based lock.
+- sorting previously done by lodash `orderBy`, now changed to custom sort functions of type `date`, `string` and `basic` (number) to allow for more flexible column sorting
 
 ### Fixed
 - `DataTable`: Search when cell data is `null` or `undefined`.
