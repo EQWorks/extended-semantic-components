@@ -11,12 +11,33 @@ const monsters = [
   { name: 'Godzilla', origin: 'Earth' },
   { name: 'Ghidorah', origin: '???' },
   { name: 'Lugia', origin: 'Pokémon Universe' },
+  { name: 'Bulbasaur', origin: 'Earth' },
 ]
 
 storiesOf('DataTable', module)
-  .add('Minimal/Default', () => (
+  .addParameters({
+    info: {
+      inline: true,
+      header: false,
+    },
+  })
+  .add('Default', () => (
     <Container>
       <DataTable data={monsters}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+        />
+      </DataTable>
+    </Container>
+  ))
+  .add('Minimal', () => (
+    <Container>
+      <DataTable data={monsters} download={false}>
         <DataTable.Column
           name='Name'
           dataKey='name'
@@ -90,5 +111,23 @@ storiesOf('DataTable', module)
           searchable: true,
         },
       ]} />
+    </Container>
+  ))
+  .add('Default sort key and order', () => (
+    <Container>
+      <DataTable
+        defaultSortKey='name'
+        defaultSortDirection='ascending'
+        data={monsters}
+        columns={[
+          {
+            name: 'Name',
+            dataKey: 'name',
+          },
+          {
+            name: 'Origin',
+            dataKey: 'origin',
+          },
+        ]} />
     </Container>
   ))

@@ -21,6 +21,8 @@ const propTypes = {
   children: childrenColumnCheck,
   columns: childrenColumnCheck,
   defaultSortKey: PropTypes.string,
+  /** one of ['descending', 'descending'] */
+  defaultSortDirection: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
   perPage: PropTypes.number,
@@ -28,6 +30,7 @@ const propTypes = {
 
 const defaultProps = {
   defaultSortKey: '',
+  defaultSortDirection: 'descending',
   downloadName: 'Table',
   download: true,
   perPage: 9,
@@ -43,7 +46,7 @@ class DataTable extends Component {
     this.state = {
       sortColumn,
       activePage: 1,
-      sortDirection: 'descending',
+      sortDirection: props.defaultSortDirection,
       searchInput: '',
       picked,
     }
