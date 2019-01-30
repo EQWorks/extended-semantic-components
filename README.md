@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/%40eqworks%2Fextended-semantic-components.svg)](https://badge.fury.io/js/%40eqworks%2Fextended-semantic-components)
 [![Build Status](https://travis-ci.com/EQWorks/extended-semantic-components.svg?branch=master)](https://travis-ci.com/EQWorks/extended-semantic-components)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/EQWorks/extended-semantic-components/pulls)
 
 # Extended Semantic Components
 
