@@ -1,3 +1,9 @@
 language: node_js
 after_success:
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ $TRAVIS_BRANCH = "master" ]; then yarn deploy-storybook --ci; else echo "Skip Storybook Deployment"; fi'
+notifications:
+  email: false
+  slack:
+    rooms:
+      - eqworks:jhfz5dy4rBrLqZ12LRh5kidg#os-sui-ext
+    on_success: never
