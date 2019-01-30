@@ -6,7 +6,7 @@ import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
 import DataTableColumn, { propTypes as columnProps } from './data-table-column'
-import customSort from './sort'
+import customSort from '../utils/sort'
 
 const colPropKeys = Object.keys(columnProps)
 

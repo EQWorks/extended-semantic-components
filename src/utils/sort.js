@@ -1,6 +1,6 @@
 export default (type, direction) => {
   let dirFactor = direction === 'ascending' ? 1 : -1
-  console.log(type, direction)
+
   switch(type){
     case "string":
       return (a,b) => {
