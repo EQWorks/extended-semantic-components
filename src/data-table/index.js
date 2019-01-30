@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { Table, Pagination, Button, Form } from 'semantic-ui-react'
-import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
 import DataTableColumn, { propTypes as columnProps } from './data-table-column'
@@ -202,7 +201,7 @@ class DataTable extends Component {
       (a,b) => customSort(
         sortType,
         sortDirection)(a[sortColumn], b[sortColumn])
-      ) : filteredData
+    ) : filteredData
 
     // pagination
     const offset = perPage * activePage
@@ -292,7 +291,7 @@ class DataTable extends Component {
               {
                 columns.length === 0 &&
                 <Table.Row textAlign='center'>
-                   <Table.HeaderCell colSpan={columns.length}>{noColumnsMsg}</Table.HeaderCell>
+                  <Table.HeaderCell colSpan={columns.length}>{noColumnsMsg}</Table.HeaderCell>
                 </Table.Row>
               }
               {paginatedData.map(row => (
