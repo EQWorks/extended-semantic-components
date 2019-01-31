@@ -149,6 +149,9 @@ class DataTable extends Component {
   }
 
   onSearchInputChange = (_, { value }) => {
+    if (value && value.length > 2) {
+      this.setState({ activePage: 1 })
+    }
     this.setState({ searchInput: value.toLowerCase() })
   }
 

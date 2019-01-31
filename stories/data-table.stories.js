@@ -5,7 +5,13 @@ import { storiesOf } from '@storybook/react'
 import { Container } from 'semantic-ui-react'
 
 import { DataTable } from '../src'
-
+import { largeDataset } from './data.js'
+/*
+largeDataset = [
+  { id: 2, first_name: 'Dorene', last_name: 'Faill', email: 'dfaill1@eepurl.com' },
+  ...
+]
+*/
 
 const monsters = [
   { name: 'Godzilla', origin: 'Earth' },
@@ -90,5 +96,19 @@ storiesOf('DataTable', module)
           searchable: true,
         },
       ]} />
+    </Container>
+  ))
+  .add('Pagination', () => (
+    <Container>
+      <DataTable
+        data={largeDataset}
+        perPage={8}
+        columns={[
+          { name: 'ID', dataKey: 'id', searchable: true },
+          { name: 'First Name', dataKey: 'first_name', searchable: true },
+          { name: 'Last Name', dataKey: 'last_name', searchable: true },
+          { name: 'Email', dataKey: 'email', searchable: true },
+        ]}
+      />
     </Container>
   ))
