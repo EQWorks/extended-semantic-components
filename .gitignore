@@ -1,5 +1,5 @@
 # macOS finder meta file
-*.DS_Store
+.DS_Store
 
 dist/
 publish/
