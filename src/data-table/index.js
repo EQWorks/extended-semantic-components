@@ -124,7 +124,7 @@ class DataTable extends Component {
       this.setState({
         activePage: 1,
         sortColumn: column,
-        sortType: this.columns().find(col=>col.dataKey===column).sortType,
+        sortType: this.columns().find(col => col.dataKey === column).sortType,
         sortDirection: 'ascending',
       })
     }
@@ -198,7 +198,7 @@ class DataTable extends Component {
     const columns = this.pickedColumns()
 
     const sortedData = sortType ? filteredData.sort(
-      (a,b) => customSort(
+      (a, b) => customSort(
         sortType,
         sortDirection)(a[sortColumn], b[sortColumn])
     ) : filteredData
