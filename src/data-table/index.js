@@ -5,7 +5,10 @@ import { Table, Pagination, Button, Form } from 'semantic-ui-react'
 import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
-import DataTableColumn, { propTypes as columnProps } from './data-table-column'
+import DataTableColumn, {
+  propTypes as columnProps,
+  defaultProps as columnDefaultProps,
+} from './data-table-column'
 
 
 const colPropKeys = Object.keys(columnProps)
@@ -85,7 +88,8 @@ class DataTable extends Component {
     const { children, columns } = this.props
 
     if (Array.isArray(columns) && columns.length > 0) {
-      return columns
+      // apply default here since columns are not DataTableColumn instances
+      return columns.map(c => ({ ...columnDefaultProps, ...c }))
     }
 
     return (Array.isArray(children) ? children : [children])
