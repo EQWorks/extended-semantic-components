@@ -112,7 +112,6 @@ class DataTable extends Component {
   }
 
   handleSort = column => () => {
-    console.log(this.columns())
     const { sortColumn, sortDirection } = this.state
     if (column === sortColumn) {
       this.setState({
