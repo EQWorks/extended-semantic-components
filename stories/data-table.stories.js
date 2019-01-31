@@ -114,8 +114,8 @@ storiesOf('DataTable', module)
     <Container>
       <DataTable
         data={monsters}
-        defaultSortKey={'name'}
-        defaultSortDir={'descending'}
+        defaultSortKey='name'
+        defaultSortDir='descending'
         columns={[
           {
             name: 'Name',
@@ -137,8 +137,8 @@ storiesOf('DataTable', module)
     <Container>
       <DataTable
         data={monsters}
-        defaultSortKey={'name'}
-        defaultSortDir={'descending'}
+        defaultSortKey='name'
+        defaultSortDir='descending'
         columns={[
           {
             name: 'Name',
