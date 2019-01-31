@@ -21,8 +21,8 @@ const defaultProps = {
   format: null,
   template: null,
   nullTemplate: null,
-  sortable: false,
-  sortType: 'basic',
+  sortable: true,
+  sortType: 'string',
 }
 
 class DataTableColumn extends React.Component { }

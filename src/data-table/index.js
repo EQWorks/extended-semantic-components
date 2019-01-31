@@ -272,7 +272,7 @@ class DataTable extends Component {
                 {columns.map(col => (
                   <Table.HeaderCell
                     key={col.dataKey || col.name}
-                    onClick={col.sortable ? this.handleSort(col.dataKey) : ()=>{}}
+                    onClick={col.sortable ? this.handleSort(col.dataKey) : null}
                     sorted={sortColumn === col.dataKey ? sortDirection : null}
                   >
                     {col.name}
