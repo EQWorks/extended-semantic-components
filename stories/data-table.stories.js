@@ -112,3 +112,37 @@ storiesOf('DataTable', module)
       />
     </Container>
   ))
+  .add('Row Click Listener', () => (
+    <Container>
+      <DataTable
+        data={monsters}
+        onRowClick={(e, d) => {
+          alert(`Clicked: ${d.name}`)
+        }}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+        />
+      </DataTable>
+    </Container>
+  ))
+  .add('Active Rows', () => (
+    <Container>
+      <DataTable
+        data={monsters}
+        isRowActive={row => row.origin === 'Earth'}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+        />
+      </DataTable>
+    </Container>
+  ))

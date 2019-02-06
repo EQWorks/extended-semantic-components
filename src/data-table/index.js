@@ -27,6 +27,8 @@ const propTypes = {
   downloadName: PropTypes.string,
   download: PropTypes.bool,
   perPage: PropTypes.number,
+  onRowClick: PropTypes.func,
+  isRowActive: PropTypes.func,
 }
 
 const defaultProps = {
@@ -34,6 +36,8 @@ const defaultProps = {
   downloadName: 'Table',
   download: true,
   perPage: 9,
+  onRowClick: null,
+  isRowActive: null,
 }
 
 
@@ -159,6 +163,10 @@ class DataTable extends Component {
     this.setState({ searchInput: value.toLowerCase() })
   }
 
+  createRowClickListener = (rowData) => (mouseEvent) => {
+    return this.props.onRowClick(mouseEvent, rowData)
+  }
+
   renderCell = (row, col) => {
     if (col.nullTemplate && (row[col.dataKey] === null || row[col.dataKey] === undefined)) {
       return col.nullTemplate
@@ -174,7 +182,7 @@ class DataTable extends Component {
   }
 
   render() {
-    const { data, download, perPage } = this.props
+    const { data, download, perPage, onRowClick, isRowActive } = this.props
     const tableProps = Object.entries(this.props)
       .filter(([key]) => !Object.keys(propTypes).includes(key))
       .reduce((acc, [key, value]) => {
@@ -280,7 +288,10 @@ class DataTable extends Component {
             </Table.Header>
             <Table.Body>
               {paginatedData.map(row => (
-                <Table.Row key={row._id}>
+                <Table.Row
+                  key={row._id}
+                  active={isRowActive && isRowActive(row)}
+                  onClick={onRowClick && this.createRowClickListener(row)}>
                   {columns.map((col) => {
                     // split out generic ...celProps passed-through similar to ...tableProps
                     const cellProps = { ...col }
