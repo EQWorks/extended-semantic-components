@@ -31,4 +31,4 @@ DataTableColumn.propTypes = propTypes
 DataTableColumn.defaultProps = defaultProps
 
 export default DataTableColumn
-export { propTypes }
+export { propTypes, defaultProps }
