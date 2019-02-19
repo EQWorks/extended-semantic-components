@@ -210,7 +210,7 @@ class DataTable extends Component {
         sortType,
         sortDirection)(a[sortColumn], b[sortColumn])
     ) : filteredData
-
+    
     // pagination
     const offset = perPage * activePage
     const totalPages = Math.ceil(sortedData.length / perPage)
