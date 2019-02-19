@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { Table, Pagination, Button, Form } from 'semantic-ui-react'
-import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
 import DataTableColumn, {
@@ -196,13 +195,21 @@ class DataTable extends Component {
       ? this.getFilteredData()
       : data
 
-    // sorting, todo: remove lodash
-    const sortedData = orderBy(filteredData, [sortColumn], sortDirection.slice(0, -6))
+    // sorting
+    filteredData.sort((a, b) => {
+      if (a[sortColumn] > b[sortColumn]) {
+        return sortDirection === 'descending' ? -1 : 1
+      }
+      if (a[sortColumn] < b[sortColumn]) {
+        return sortDirection === 'descending' ? 1 : -1
+      }
+      return 0
+    })
 
     // pagination
     const offset = perPage * activePage
-    const totalPages = Math.ceil(sortedData.length / perPage)
-    const paginatedData = sortedData.filter((d, i) => i >= (offset - perPage) && i < offset)
+    const totalPages = Math.ceil(filteredData.length / perPage)
+    const paginatedData = filteredData.filter((d, i) => i >= (offset - perPage) && i < offset)
 
     // pick/toggle
     const pickables = this.pickables()
