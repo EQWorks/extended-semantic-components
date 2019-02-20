@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { Table, Pagination, Button, Form } from 'semantic-ui-react'
-import { orderBy } from 'lodash'
 import numeral from 'numeral'
 
 import DataTableColumn, {
   propTypes as columnProps,
   defaultProps as columnDefaultProps,
 } from './data-table-column'
+import customSort from '../utils/sort'
 
 
 const colPropKeys = Object.keys(columnProps)
@@ -24,20 +24,26 @@ const propTypes = {
   children: childrenColumnCheck,
   columns: childrenColumnCheck,
   defaultSortKey: PropTypes.string,
+  defaultSortDir: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
   perPage: PropTypes.number,
   onRowClick: PropTypes.func,
   isRowActive: PropTypes.func,
+  emptySearchMsg: PropTypes.string,
+  noColumnsMsg: PropTypes.string,
 }
 
 const defaultProps = {
   defaultSortKey: '',
+  defaultSortDir: 'descending',
   downloadName: 'Table',
   download: true,
   perPage: 9,
   onRowClick: null,
   isRowActive: null,
+  emptySearchMsg: 'Couldn\'t find anything :(',
+  noColumnsMsg: 'No columns selected',
 }
 
 
@@ -45,12 +51,12 @@ class DataTable extends Component {
   constructor(props) {
     super(props)
 
-    const { defaultSortKey: sortColumn } = this.props
+    const { defaultSortKey: sortColumn, defaultSortDir: sortDirection } = this.props
     const picked = this.pickables()
     this.state = {
       sortColumn,
+      sortDirection,
       activePage: 1,
-      sortDirection: 'descending',
       searchInput: '',
       picked,
     }
@@ -127,6 +133,7 @@ class DataTable extends Component {
       this.setState({
         activePage: 1,
         sortColumn: column,
+        sortType: this.columns().find(col => col.dataKey === column).sortType,
         sortDirection: 'ascending',
       })
     }
@@ -182,14 +189,22 @@ class DataTable extends Component {
   }
 
   render() {
-    const { data, download, perPage, onRowClick, isRowActive } = this.props
+    const {
+      data,
+      download,
+      perPage,
+      onRowClick,
+      isRowActive,
+      emptySearchMsg,
+      noColumnsMsg,
+    } = this.props
     const tableProps = Object.entries(this.props)
       .filter(([key]) => !Object.keys(propTypes).includes(key))
       .reduce((acc, [key, value]) => {
         acc[key] = value
         return acc
       }, {})
-    const { activePage, sortColumn, sortDirection, searchInput, picked } = this.state
+    const { activePage, sortColumn, sortDirection, sortType, searchInput, picked } = this.state
 
     // set unique row key
     let id = 0
@@ -204,8 +219,13 @@ class DataTable extends Component {
       ? this.getFilteredData()
       : data
 
-    // sorting, todo: remove lodash
-    const sortedData = orderBy(filteredData, [sortColumn], sortDirection.slice(0, -6))
+    const columns = this.pickedColumns()
+
+    const sortedData = sortType ? filteredData.sort(
+      (a, b) => customSort(
+        sortType,
+        sortDirection)(a[sortColumn], b[sortColumn])
+    ) : filteredData
 
     // pagination
     const offset = perPage * activePage
@@ -214,8 +234,6 @@ class DataTable extends Component {
 
     // pick/toggle
     const pickables = this.pickables()
-
-    const columns = this.pickedColumns()
 
     return (
       <div style={{ marginTop: '1em', paddingBottom: '1em' }}>
@@ -278,7 +296,7 @@ class DataTable extends Component {
                 {columns.map(col => (
                   <Table.HeaderCell
                     key={col.dataKey || col.name}
-                    onClick={this.handleSort(col.dataKey)}
+                    onClick={col.sortable ? this.handleSort(col.dataKey) : null}
                     sorted={sortColumn === col.dataKey ? sortDirection : null}
                   >
                     {col.name}
@@ -287,6 +305,19 @@ class DataTable extends Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
+              {
+                paginatedData.length === 0 &&
+                columns.length>0 &&
+                <Table.Row textAlign='center'>
+                  <Table.HeaderCell colSpan={columns.length}>{emptySearchMsg}</Table.HeaderCell>
+                </Table.Row>
+              }
+              {
+                columns.length === 0 &&
+                <Table.Row textAlign='center'>
+                  <Table.HeaderCell colSpan={columns.length}>{noColumnsMsg}</Table.HeaderCell>
+                </Table.Row>
+              }
               {paginatedData.map(row => (
                 <Table.Row
                   key={row._id}
