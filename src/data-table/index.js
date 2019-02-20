@@ -291,7 +291,7 @@ class DataTable extends Component {
                 <Table.Row
                   key={row._id}
                   active={isRowActive && isRowActive(row)}
-                  onClick={onRowClick && this.createRowClickListener(row)}>
+                  onClick={typeof onRowClick === 'function' && this.createRowClickListener(row)}>
                   {columns.map((col) => {
                     // split out generic ...celProps passed-through similar to ...tableProps
                     const cellProps = { ...col }
