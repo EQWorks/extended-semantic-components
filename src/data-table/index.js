@@ -28,6 +28,8 @@ const propTypes = {
   downloadName: PropTypes.string,
   download: PropTypes.bool,
   perPage: PropTypes.number,
+  onRowClick: PropTypes.func,
+  isRowActive: PropTypes.func,
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
 }
@@ -38,6 +40,8 @@ const defaultProps = {
   downloadName: 'Table',
   download: true,
   perPage: 9,
+  onRowClick: null,
+  isRowActive: null,
   emptySearchMsg: 'Couldn\'t find anything :(',
   noColumnsMsg: 'No columns selected',
 }
@@ -166,6 +170,10 @@ class DataTable extends Component {
     this.setState({ searchInput: value.toLowerCase() })
   }
 
+  createRowClickListener = (rowData) => (mouseEvent) => {
+    return this.props.onRowClick(mouseEvent, rowData)
+  }
+
   renderCell = (row, col) => {
     if (col.nullTemplate && (row[col.dataKey] === null || row[col.dataKey] === undefined)) {
       return col.nullTemplate
@@ -181,7 +189,15 @@ class DataTable extends Component {
   }
 
   render() {
-    const { data, download, perPage, emptySearchMsg, noColumnsMsg } = this.props
+    const {
+      data,
+      download,
+      perPage,
+      onRowClick,
+      isRowActive,
+      emptySearchMsg,
+      noColumnsMsg,
+    } = this.props
     const tableProps = Object.entries(this.props)
       .filter(([key]) => !Object.keys(propTypes).includes(key))
       .reduce((acc, [key, value]) => {
@@ -210,7 +226,7 @@ class DataTable extends Component {
         sortType,
         sortDirection)(a[sortColumn], b[sortColumn])
     ) : filteredData
-    
+
     // pagination
     const offset = perPage * activePage
     const totalPages = Math.ceil(sortedData.length / perPage)
@@ -303,7 +319,10 @@ class DataTable extends Component {
                 </Table.Row>
               }
               {paginatedData.map(row => (
-                <Table.Row key={row._id}>
+                <Table.Row
+                  key={row._id}
+                  active={typeof isRowActive === 'function' && isRowActive(row)}
+                  onClick={typeof onRowClick === 'function' && this.createRowClickListener(row)}>
                   {columns.map((col) => {
                     // split out generic ...celProps passed-through similar to ...tableProps
                     const cellProps = { ...col }
