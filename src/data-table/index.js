@@ -166,13 +166,13 @@ class DataTable extends Component {
       {char: 'c', base: /[\347]/g}
     ]
     diacritics.forEach(function(letter){
-      str = str.replace(letter.base, letter.char);
-    });
-    return str;
-  };
+      str = str.replace(letter.base, letter.char)
+    })
+    return str
+  }
 
   search = (text, data) => {
-    const array = text.match(" ") ? text.split(" ") : text.split()
+    const array = text.match(' ') ? text.split(' ') : text.split()
     for (let i = 0; i < array.length; i++) {
       if (data.filter(row => (this.searchables().find(c => this.replaceDiacritics(String(row[c] || '')).toLowerCase().includes(array[i])))).length > 0) {
         return data.filter(row => (this.searchables().find(c => this.replaceDiacritics(String(row[c] || '')).toLowerCase().includes(array[i]))))
