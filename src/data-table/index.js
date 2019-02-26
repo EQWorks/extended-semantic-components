@@ -10,7 +10,7 @@ import DataTableColumn, {
 } from './data-table-column'
 import customSort from '../utils/sort'
 
-import Fuse from 'fuse.js/src';
+import Fuse from 'fuse.js/src'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -165,15 +165,15 @@ class DataTable extends Component {
       maxPatternLength: 32,
       minMatchCharLength: 1,
       keys: [
-        "name",
-        "origin",
-        "fearsomeness",
-        "dob",
-        "first_name",
-        "last_name"
+        'name',
+        'origin',
+        'fearsomeness',
+        'dob',
+        'first_name',
+        'last_name'
       ]
-    };
-    const fuse = new Fuse(data, options);     
+    }
+    const fuse = new Fuse(data, options)  
 
     if (searchables.length === 0) {
       return data
