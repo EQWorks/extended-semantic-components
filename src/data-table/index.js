@@ -10,6 +10,7 @@ import DataTableColumn, {
 } from './data-table-column'
 import customSort from '../utils/sort'
 
+import Fuse from 'fuse.js/src';
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -154,13 +155,31 @@ class DataTable extends Component {
     const { searchInput } = this.state
     const text = searchInput.toLowerCase()
     const searchables = this.searchables()
+    const options = {
+      shouldSort: true,
+      tokenize: true,
+      matchAllTokens: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        "name",
+        "origin",
+        "fearsomeness",
+        "dob",
+        "first_name",
+        "last_name"
+      ]
+    };
+    const fuse = new Fuse(data, options);     
 
     if (searchables.length === 0) {
       return data
     }
 
-    return data
-      .filter(row => (searchables.find(c => String(row[c] || '').toLowerCase().includes(text))))
+    return fuse.search(text)
   }
 
   onSearchInputChange = (_, { value }) => {
