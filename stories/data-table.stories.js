@@ -230,3 +230,19 @@ storiesOf('DataTable', module)
       </DataTable>
     </Container>
   ))
+  .add('Download picked columns', () => (
+    <Container>
+      <DataTable data={monsters} downloadPicked={true}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+          pickable
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+          pickable
+        />
+      </DataTable>
+    </Container>
+  ))
