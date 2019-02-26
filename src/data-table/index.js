@@ -67,8 +67,9 @@ class DataTable extends Component {
   downloadReport = () => {
     const { data, downloadName, downloadPicked } = this.props
 
-    const headers = downloadPicked ? this.pickedColumns().map(c => c.name) : this.columns().map(c => c.name)
-    const valueKeys = downloadPicked ? this.pickedColumns().map(c => c.dataKey) : this.columns().map(c => c.name)
+    const columns = downloadPicked ? this.pickedColumns() : this.columns()
+    const headers = columns.map(c => c.name)
+    const valueKeys = columns.map(c => c.dataKey)
 
     let csvContent = 'data:text/csv;charset=utf-8,'
 
