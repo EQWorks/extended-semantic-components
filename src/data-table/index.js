@@ -32,6 +32,7 @@ const propTypes = {
   isRowActive: PropTypes.func,
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
+  downloadPicked: PropTypes.bool,
 }
 
 const defaultProps = {
@@ -44,6 +45,7 @@ const defaultProps = {
   isRowActive: null,
   emptySearchMsg: 'Couldn\'t find anything :(',
   noColumnsMsg: 'No columns selected',
+  downloadPicked: false,
 }
 
 
@@ -63,10 +65,11 @@ class DataTable extends Component {
   }
 
   downloadReport = () => {
-    const { data, downloadName } = this.props
+    const { data, downloadName, downloadPicked } = this.props
 
-    const headers = this.columns().map(c => c.name)
-    const valueKeys = this.columns().map(c => c.dataKey)
+    const columns = downloadPicked ? this.pickedColumns() : this.columns()
+    const headers = columns.map(c => c.name)
+    const valueKeys = columns.map(c => c.dataKey)
 
     let csvContent = 'data:text/csv;charset=utf-8,'
 
