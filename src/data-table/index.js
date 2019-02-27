@@ -321,7 +321,6 @@ class DataTable extends Component {
                 ))}
               </Table.Row>
             </Table.Header>
-          
             <Table.Body>
               {
                 paginatedData.length === 0 &&
@@ -359,7 +358,7 @@ class DataTable extends Component {
                   })}
                 </Table.Row>
               ))}
-            </Table.Body>        
+            </Table.Body>
           </Table>
         </div>
         {totalPages > 1 && (
