@@ -33,6 +33,7 @@ const propTypes = {
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
   downloadPicked: PropTypes.bool,
+  zeroConfig: PropTypes.bool,
 }
 
 const defaultProps = {
@@ -46,6 +47,7 @@ const defaultProps = {
   emptySearchMsg: 'Couldn\'t find anything :(',
   noColumnsMsg: 'No columns selected',
   downloadPicked: false,
+  zeroConfig: false,
 }
 
 
@@ -98,10 +100,17 @@ class DataTable extends Component {
   }
 
   columns = () => {
-    const { children, columns } = this.props
+    const { children, columns, data, zeroConfig } = this.props
 
     if (Array.isArray(columns) && columns.length > 0) {
       // apply default here since columns are not DataTableColumn instances
+      return columns.map(c => ({ ...columnDefaultProps, ...c }))
+    }
+
+    if (zeroConfig) {
+      const columns = []
+      Object.keys(data[0]).map(key => (key !== '_id' && columns.push({name: (key.charAt(0).toUpperCase() + key.slice(1)).replace('_', ' '), dataKey: key, sortable: false, pickable: true,
+        searchable: true, })))
       return columns.map(c => ({ ...columnDefaultProps, ...c }))
     }
 
@@ -307,6 +316,7 @@ class DataTable extends Component {
                 ))}
               </Table.Row>
             </Table.Header>
+          
             <Table.Body>
               {
                 paginatedData.length === 0 &&
@@ -344,7 +354,7 @@ class DataTable extends Component {
                   })}
                 </Table.Row>
               ))}
-            </Table.Body>
+            </Table.Body>        
           </Table>
         </div>
         {totalPages > 1 && (
