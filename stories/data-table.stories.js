@@ -2,7 +2,7 @@ import 'semantic-ui-css/semantic.min.css'
 import React from 'react'
 
 import { storiesOf } from '@storybook/react'
-import { Container } from 'semantic-ui-react'
+import { Container, Button } from 'semantic-ui-react'
 
 import { DataTable } from '../src'
 import { largeDataset } from './data.js'
@@ -243,6 +243,24 @@ storiesOf('DataTable', module)
           dataKey='origin'
           pickable
         />
+      </DataTable>
+    </Container>
+  ))
+  .add('Custom column rendering', () => (
+    <Container>
+      <DataTable data={monsters}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+          template={(value, row) => (
+            <Button
+              content={value}
+              onClick={() => alert(`Name: ${value}, Birth: ${row.dob}`)}
+            />
+          )}
+        />
+        <DataTable.Column name='Origin' dataKey='origin' />
+        <DataTable.Column name='Date of Birth' dataKey='dob' />
       </DataTable>
     </Container>
   ))
