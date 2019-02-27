@@ -109,8 +109,8 @@ class DataTable extends Component {
 
     if (zeroConfig) {
       const columns = []
-      Object.keys(data[0]).map(key => (key !== '_id' && columns.push({name: (key.charAt(0).toUpperCase() + key.slice(1)).replace('_', ' '), dataKey: key, sortable: false, pickable: true,
-        searchable: true })))
+      Object.keys(data[0]).map(key => (key !== '_id' && columns.push({name: (key.charAt(0).toUpperCase() + key.slice(1)).replace('_', ' '), dataKey: key, sortable: true, pickable: true,
+        searchable: true, sortType: Number.isInteger(data[0][key]) ? 'basic' : 'string'})))
       return columns.map(c => ({ ...columnDefaultProps, ...c }))
     }
 
