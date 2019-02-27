@@ -117,7 +117,7 @@ class DataTable extends Component {
   pickedColumns = () => {
     const { picked } = this.state
 
-    return this.columns().filter(c => !c.pickable || (c.pickable && picked.includes(c.name)))
+    return this.columns().filter(c => !c.pickable || picked.includes(c.name))
   }
 
   onPageChange = (_, { activePage }) => {
