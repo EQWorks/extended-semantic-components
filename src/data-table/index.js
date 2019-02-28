@@ -165,7 +165,6 @@ class DataTable extends Component {
     if (searchables.length === 0) {
       return data
     }
-    // debugger;
     return search(text, data, searchables)
   }
 
