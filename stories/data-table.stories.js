@@ -17,12 +17,33 @@ const monsters = [
   { name: 'Godzilla', origin: 'Earth', dob: new Date().toString(), fearsomeness: 1000 },
   { name: 'Ghidorah', origin: '???', dob: '2008-08-08', fearsomeness: 800 },
   { name: 'Lugia', origin: 'Pokémon Universe', dob: '1990-11-23', fearsomeness: 1001 },
+  { name: 'Bulbasaur', origin: 'Earth', dob: '1990-12-25', fearsomeness: 2333 },
 ]
 
 storiesOf('DataTable', module)
-  .add('Minimal/Default', () => (
+  .addParameters({
+    info: {
+      inline: true,
+      header: false,
+    },
+  })
+  .add('Default', () => (
     <Container>
       <DataTable data={monsters}>
+        <DataTable.Column
+          name='Name'
+          dataKey='name'
+        />
+        <DataTable.Column
+          name='Origin'
+          dataKey='origin'
+        />
+      </DataTable>
+    </Container>
+  ))
+  .add('Minimal', () => (
+    <Container>
+      <DataTable data={monsters} download={false}>
         <DataTable.Column
           name='Name'
           dataKey='name'
@@ -116,27 +137,22 @@ storiesOf('DataTable', module)
       ]} />
     </Container>
   ))
-  .add('Default sort direction', () => (
+  .add('Default sort key and order', () => (
     <Container>
       <DataTable
-        data={monsters}
         defaultSortKey='name'
-        defaultSortDir='descending'
+        defaultSortDir='ascending'
+        data={monsters}
         columns={[
           {
             name: 'Name',
             dataKey: 'name',
-            pickable: true,
-            searchable: true,
           },
           {
             name: 'Origin',
             dataKey: 'origin',
-            pickable: true,
-            searchable: true,
           },
-        ]}
-      />
+        ]} />
     </Container>
   ))
   .add('Custom sorting', () => (
@@ -262,5 +278,10 @@ storiesOf('DataTable', module)
         <DataTable.Column name='Origin' dataKey='origin' />
         <DataTable.Column name='Date of Birth' dataKey='dob' />
       </DataTable>
+    </Container>
+  ))
+  .add('Zero config table', () => (
+    <Container>
+      <DataTable data={monsters} />
     </Container>
   ))
