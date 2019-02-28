@@ -24,6 +24,7 @@ const propTypes = {
   children: childrenColumnCheck,
   columns: childrenColumnCheck,
   defaultSortKey: PropTypes.string,
+  /** one of ['descending', 'ascending'] */
   defaultSortDir: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
@@ -53,7 +54,11 @@ class DataTable extends Component {
   constructor(props) {
     super(props)
 
-    const { defaultSortKey: sortColumn, defaultSortDir: sortDirection } = this.props
+    const {
+      defaultSortKey: sortColumn,
+      defaultSortDir: sortDirection,
+    } = props
+
     const picked = this.pickables()
     this.state = {
       sortColumn,
