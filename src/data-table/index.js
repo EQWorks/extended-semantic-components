@@ -114,7 +114,8 @@ class DataTable extends Component {
           dataKey: key,
           pickable: true,
           searchable: true,
-          sortType: Number.isInteger(data[0][key]) ? 'basic' : 'string'})))
+          sortType: (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
+        })))
         return columns
       }
       else {

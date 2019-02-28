@@ -264,7 +264,6 @@ storiesOf('DataTable', module)
   ))
   .add('Zero config table', () => (
     <Container>
-      <DataTable data={monsters}>
-      </DataTable>
+      <DataTable data={monsters}/>
     </Container>
   ))
