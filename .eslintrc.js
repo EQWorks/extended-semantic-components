@@ -1,8 +1,8 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true,
+  'env': {
+    'browser': true,
+    'es6': true,
+    'node': true,
   },
   settings: {
     react: {
@@ -10,47 +10,48 @@ module.exports = {
       version: '16.7',
     },
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
+  'extends': [
+    'eslint:recommended',
+    'plugin:react/recommended',
   ],
-  "parser": "babel-eslint",
-  "parserOptions": {
+  'parser': 'babel-eslint',
+  'parserOptions': {
     ecmaVersion: 6,
-    "sourceType": "module",
+    'sourceType': 'module',
   },
-  "plugins": [
-    "react",
+  'plugins': [
+    'react',
   ],
-  "rules": {
-    "indent": [
-      "error",
+  'rules': {
+    'indent': [
+      'error',
       2,
     ],
-    "linebreak-style": [
-      "error",
-      "unix",
+    'linebreak-style': [
+      'error',
+      'unix',
     ],
-    "quotes": [
-      "error",
-      "single",
+    'quotes': [
+      'error',
+      'single',
+      { 'avoidEscape': true },
     ],
-    "semi": [
-      "error",
-      "never",
+    'semi': [
+      'error',
+      'never',
     ],
-    "no-console": [
-      "warn"
+    'no-console': [
+      'warn'
     ],
-    "comma-dangle": [
-      "error",
-      "only-multiline"
+    'comma-dangle': [
+      'error',
+      'only-multiline'
     ],
-    "eol-last": [
-      "error",
+    'eol-last': [
+      'error',
     ],
-    "no-trailing-spaces": [
-      "error",
+    'no-trailing-spaces': [
+      'error',
     ],
   },
 }
