@@ -33,7 +33,6 @@ const propTypes = {
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
   downloadPicked: PropTypes.bool,
-  zeroConfig: PropTypes.bool,
 }
 
 const defaultProps = {
@@ -47,7 +46,6 @@ const defaultProps = {
   emptySearchMsg: 'Couldn\'t find anything :(',
   noColumnsMsg: 'No columns selected',
   downloadPicked: false,
-  zeroConfig: false,
 }
 
 
@@ -100,22 +98,27 @@ class DataTable extends Component {
   }
 
   columns = () => {
-    const { children, columns, data, zeroConfig } = this.props
+    const { children, columns, data} = this.props
+
+    if (!children && !columns) {
+      const columns = []
+      if (data.length > 0) {
+        Object.keys(data[0]).map(key => (key !== '_id' && columns.push({
+          name: key,
+          dataKey: key,
+          sortable: true,
+          pickable: true,
+          searchable: true,
+          sortType: Number.isInteger(data[0][key]) ? 'basic' : 'string'})))
+        return columns.map(c => ({ ...columnDefaultProps, ...c }))
+      }
+      else {
+        return []
+      }
+    }
 
     if (Array.isArray(columns) && columns.length > 0) {
       // apply default here since columns are not DataTableColumn instances
-      return columns.map(c => ({ ...columnDefaultProps, ...c }))
-    }
-
-    if (zeroConfig) {
-      const columns = []
-      Object.keys(data[0]).map(key => (key !== '_id' && columns.push({
-        name: (key.charAt(0).toUpperCase() + key.slice(1)).replace('_', ' '), 
-        dataKey: key, 
-        sortable: true, 
-        pickable: true,
-        searchable: true, 
-        sortType: Number.isInteger(data[0][key]) ? 'basic' : 'string'})))
       return columns.map(c => ({ ...columnDefaultProps, ...c }))
     }
 
