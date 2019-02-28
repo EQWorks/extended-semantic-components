@@ -11,5 +11,4 @@ import { DateRangePicker } from '../src'
 storiesOf('DateRangePicker', module)
   .add('Default', () => (
     <DateRangePicker onSelection={action('Selected Date Range')} />
-  )
-)
+  ))
