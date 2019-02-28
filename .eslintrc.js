@@ -53,5 +53,8 @@ module.exports = {
     'no-trailing-spaces': [
       'error',
     ],
+    'key-spacing': [
+      'error',
+    ]
   },
 }
