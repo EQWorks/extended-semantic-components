@@ -107,7 +107,10 @@ class DataTable extends Component {
     const emptyData = []
     if (!children && !columns) {
       const columns = []
-      if (data.length > 0) {
+      if(!data.length) {
+        return emptyData
+      }
+      else {
         Object.keys(data[0]).forEach(key => (key !== '_id' && columns.push({
           ...columnDefaultProps,
           name: key,
@@ -117,9 +120,6 @@ class DataTable extends Component {
           sortType: (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
         })))
         return columns
-      }
-      else {
-        return emptyData
       }
     }
 
