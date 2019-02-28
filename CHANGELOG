@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Fixed a bug causing by doing search while not in the first page
 - Added table able to download to honour user picked columns
-- Added zero config datatable
 - Added tokenized search feature
+- Added zero config datatable
+
 
 ## [2.1.0] - 2019-01-28
 ### Added
