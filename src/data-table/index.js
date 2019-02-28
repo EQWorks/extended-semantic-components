@@ -110,17 +110,15 @@ class DataTable extends Component {
       if(!data.length) {
         return emptyData
       }
-      else {
-        Object.keys(data[0]).forEach(key => (key !== '_id' && columns.push({
-          ...columnDefaultProps,
-          name: key,
-          dataKey: key,
-          pickable: true,
-          searchable: true,
-          sortType: (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
-        })))
-        return columns
-      }
+      Object.keys(data[0]).forEach(key => (key !== '_id' && columns.push({
+        ...columnDefaultProps,
+        name: key,
+        dataKey: key,
+        pickable: true,
+        searchable: true,
+        sortType: (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
+      })))
+      return columns
     }
 
     if (Array.isArray(columns) && columns.length > 0) {
