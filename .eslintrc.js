@@ -55,6 +55,12 @@ module.exports = {
     ],
     'key-spacing': [
       'error',
+    ],
+    'keyword-spacing': [
+      'error',
+    ],
+    'react/jsx-tag-spacing': [
+      'error',
     ]
   },
 }
