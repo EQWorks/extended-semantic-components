@@ -9,6 +9,7 @@ import DataTableColumn, {
   defaultProps as columnDefaultProps,
 } from './data-table-column'
 import customSort from '../utils/sort'
+import search from '../utils/search'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -151,51 +152,16 @@ class DataTable extends Component {
     }
   }
 
-  replaceDiacritics = (str) => {
-    const diacritics = [
-      {char: 'A', base: /[\300-\306]/g},
-      {char: 'a', base: /[\340-\346]/g},
-      {char: 'E', base: /[\310-\313]/g},
-      {char: 'e', base: /[\350-\353]/g},
-      {char: 'I', base: /[\314-\317]/g},
-      {char: 'i', base: /[\354-\357]/g},
-      {char: 'O', base: /[\322-\330]/g},
-      {char: 'o', base: /[\362-\370]/g},
-      {char: 'U', base: /[\331-\334]/g},
-      {char: 'u', base: /[\371-\374]/g},
-      {char: 'N', base: /[\321]/g},
-      {char: 'n', base: /[\361]/g},
-      {char: 'C', base: /[\307]/g},
-      {char: 'c', base: /[\347]/g}
-    ]
-    diacritics.forEach(function(letter){
-      str = str.replace(letter.base, letter.char)
-    })
-    return str
-  }
-
-  search = (text, data) => {
-    const array = text.match(' ') ? text.split(' ') : text.split()
-    for (let i = 0; i < array.length; i++) {
-      if (data.filter(row => (this.searchables().find(c => this.replaceDiacritics(String(row[c] || '')).toLowerCase().includes(array[i])))).length > 0) {
-        return data.filter(row => (this.searchables().find(c => this.replaceDiacritics(String(row[c] || '')).toLowerCase().includes(array[i]))))
-      } else if (data.filter(row => (this.searchables().find(c => this.replaceDiacritics(String(row[c] || '')).toLowerCase().includes(array[i])))).length === 0) {
-        return data.filter(row => (this.searchables().find(c => this.replaceDiacritics(String(row[c] || '')).toLowerCase().includes(array[i+1]))))
-      }
-    }
-  }
-
   getFilteredData() {
     const { data } = this.props
     const { searchInput } = this.state
     const text = searchInput.toLowerCase()
     const searchables = this.searchables()
-    
     if (searchables.length === 0) {
       return data
     }
-
-    return this.search(text, data)
+    // debugger;
+    return search(text, data, searchables)
   }
 
   onSearchInputChange = (_, { value }) => {
