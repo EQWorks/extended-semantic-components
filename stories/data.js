@@ -74,7 +74,7 @@ const largeDataset = [
   {
     'id':13,
     'first_name':'Sher',
-    'last_name':"O'Fogarty",
+    'last_name':'O\'Fogarty',
     'email':'sofogartyc@prweb.com'
   },
   {

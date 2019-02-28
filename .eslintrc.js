@@ -2,6 +2,7 @@ module.exports = {
   "env": {
     "browser": true,
     "es6": true,
+    "node": true,
   },
   settings: {
     react: {
@@ -46,6 +47,9 @@ module.exports = {
       "only-multiline"
     ],
     "eol-last": [
+      "error",
+    ],
+    "no-trailing-spaces": [
       "error",
     ],
   },
