@@ -32,7 +32,7 @@
     "moment": "^2.23.0",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
-    "react-dates": "^17.2.0",
+    "react-dates": "^19",
     "react-moment-proptypes": "^1.6.0"
   },
   "devDependencies": {
