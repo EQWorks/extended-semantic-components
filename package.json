@@ -9,7 +9,8 @@
   "scripts": {
     "test": "yarn lint && yarn transpile",
     "transpile": "rimraf dist && babel src --out-dir dist --copy-files",
-    "lint": "eslint src",
+    "lint": "eslint src stories",
+    "lint:watch:fix": "esw --fix --watch src stories",
     "storybook": "start-storybook -p 6006",
     "deploy-storybook": "storybook-to-ghpages",
     "prepublishOnly": "yarn test"
@@ -51,6 +52,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.10.0",
+    "eslint-watch": "^4.0.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "rimraf": "^2.6.3",

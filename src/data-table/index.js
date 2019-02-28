@@ -107,7 +107,7 @@ class DataTable extends Component {
     const emptyData = []
     if (!children && !columns) {
       const columns = []
-      if(!data.length) {
+      if (!data.length) {
         return emptyData
       }
       Object.keys(data[0]).forEach(key => (key !== '_id' && columns.push({
