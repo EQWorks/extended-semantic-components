@@ -9,7 +9,7 @@ import DataTableColumn, {
   defaultProps as columnDefaultProps,
 } from './data-table-column'
 import customSort from '../utils/sort'
-
+import search from '../utils/search'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -103,7 +103,23 @@ class DataTable extends Component {
   }
 
   columns = () => {
-    const { children, columns } = this.props
+    const { children, columns, data} = this.props
+    const emptyData = []
+    if (!children && !columns) {
+      const columns = []
+      if(!data.length) {
+        return emptyData
+      }
+      Object.keys(data[0]).forEach(key => (key !== '_id' && columns.push({
+        ...columnDefaultProps,
+        name: key,
+        dataKey: key,
+        pickable: true,
+        searchable: true,
+        sortType: (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
+      })))
+      return columns
+    }
 
     if (Array.isArray(columns) && columns.length > 0) {
       // apply default here since columns are not DataTableColumn instances
@@ -162,13 +178,10 @@ class DataTable extends Component {
     const { searchInput } = this.state
     const text = searchInput.toLowerCase()
     const searchables = this.searchables()
-
     if (searchables.length === 0) {
       return data
     }
-
-    return data
-      .filter(row => (searchables.find(c => String(row[c] || '').toLowerCase().includes(text))))
+    return search(text, data, searchables)
   }
 
   onSearchInputChange = (_, { value }) => {
