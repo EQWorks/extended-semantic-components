@@ -104,7 +104,7 @@ class DataTable extends Component {
 
   columns = () => {
     const { children, columns, data} = this.props
-
+    const emptyData = []
     if (!children && !columns) {
       const columns = []
       if (data.length > 0) {
@@ -118,7 +118,7 @@ class DataTable extends Component {
         return columns.map(c => ({ ...columnDefaultProps, ...c }))
       }
       else {
-        return []
+        return emptyData
       }
     }
 
