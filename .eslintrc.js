@@ -38,16 +38,15 @@ module.exports = {
       "error",
       "never",
     ],
-    "comma-dangle": [
-      "error",
-      "never",
-    ],
     "no-console": [
       "warn"
     ],
     "comma-dangle": [
       "error",
       "only-multiline"
+    ],
+    "eol-last": [
+      "error",
     ],
   },
 }
