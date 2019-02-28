@@ -9,7 +9,7 @@ import DataTableColumn, {
   defaultProps as columnDefaultProps,
 } from './data-table-column'
 import customSort from '../utils/sort'
-
+import search from '../utils/search'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -162,13 +162,10 @@ class DataTable extends Component {
     const { searchInput } = this.state
     const text = searchInput.toLowerCase()
     const searchables = this.searchables()
-
     if (searchables.length === 0) {
       return data
     }
-
-    return data
-      .filter(row => (searchables.find(c => String(row[c] || '').toLowerCase().includes(text))))
+    return search(text, data, searchables)
   }
 
   onSearchInputChange = (_, { value }) => {
