@@ -138,7 +138,7 @@ class DataTable extends Component {
   pickedColumns = () => {
     const { picked } = this.state
 
-    return this.columns().filter(c => !c.pickable || (c.pickable && picked.includes(c.name)))
+    return this.columns().filter(c => !c.pickable || picked.includes(c.name))
   }
 
   onPageChange = (_, { activePage }) => {
@@ -342,8 +342,8 @@ class DataTable extends Component {
               {paginatedData.map(row => (
                 <Table.Row
                   key={row._id}
-                  active={typeof isRowActive === 'function' && isRowActive(row)}
-                  onClick={typeof onRowClick === 'function' && this.createRowClickListener(row)}>
+                  active={typeof isRowActive === 'function' ? isRowActive(row) : undefined}
+                  onClick={typeof onRowClick === 'function' ? this.createRowClickListener(row) : undefined}>
                   {columns.map((col) => {
                     // split out generic ...celProps passed-through similar to ...tableProps
                     const cellProps = { ...col }
