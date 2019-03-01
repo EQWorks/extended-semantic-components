@@ -5,10 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Fixed a bug causing by doing search while not in the first page
-- Added table able to download to honour user picked columns
-- Added tokenized search feature
-- Added zero config DataTable
+
+## [2.2.0] - 2019-03-01
+### Added
+- Table able to download to honour user picked columns.
+- Tokenized search feature.
+- Zero config `DataTable`.
+- Working storybook of `DateRangePicker`.
+
+### Fixed
+- A bug caused by doing search while not in the first page.
 
 ## [2.1.0] - 2019-01-28
 ### Added
