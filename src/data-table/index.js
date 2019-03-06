@@ -8,8 +8,7 @@ import DataTableColumn, {
   propTypes as columnProps,
   defaultProps as columnDefaultProps,
 } from './data-table-column'
-import customSort from '../utils/sort'
-import search from '../utils/search'
+import { sort, search } from '../utils'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -26,6 +25,7 @@ const propTypes = {
   defaultSortKey: PropTypes.string,
   /** one of ['descending', 'ascending'] */
   defaultSortDir: PropTypes.string,
+  defaultSortType: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
   perPage: PropTypes.number,
@@ -39,12 +39,13 @@ const propTypes = {
 const defaultProps = {
   defaultSortKey: '',
   defaultSortDir: 'descending',
+  defaultSortType: 'string',
   downloadName: 'Table',
   download: true,
   perPage: 9,
   onRowClick: null,
   isRowActive: null,
-  emptySearchMsg: 'Couldn\'t find anything :(',
+  emptySearchMsg: "Couldn't find anything :(",
   noColumnsMsg: 'No columns selected',
   downloadPicked: false,
 }
@@ -57,12 +58,14 @@ class DataTable extends Component {
     const {
       defaultSortKey: sortColumn,
       defaultSortDir: sortDirection,
+      defaultSortType: sortType,
     } = props
 
     const picked = this.pickables()
     this.state = {
       sortColumn,
       sortDirection,
+      sortType,
       activePage: 1,
       searchInput: '',
       picked,
@@ -242,11 +245,9 @@ class DataTable extends Component {
 
     const columns = this.pickedColumns()
 
-    const sortedData = sortType ? filteredData.sort(
-      (a, b) => customSort(
-        sortType,
-        sortDirection)(a[sortColumn], b[sortColumn])
-    ) : filteredData
+    const sortedData = filteredData.sort(
+      (a, b) => sort(sortType || 'basic', sortDirection)(a[sortColumn], b[sortColumn])
+    )
 
     // pagination
     const offset = perPage * activePage
