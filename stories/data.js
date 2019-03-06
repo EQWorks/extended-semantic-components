@@ -182,7 +182,7 @@ export const largeDataset = [
 ]
 
 export const monsters = [
-  { name: 'Godzilla', origin: 'Earth', dob: new Date('1954-11-03').toString(), fearsomeness: 1000 },
+  { name: 'Godzilla', origin: 'Earth', dob: new Date('1954-11-03').toISOString(), fearsomeness: 1000 },
   { name: 'Ghidorah', origin: '???', dob: '2008-08-08', fearsomeness: 800 },
   { name: 'Lugia', origin: 'Pokémon Universe', dob: '1990-11-23', fearsomeness: 1001 },
   { name: 'Bulbasaur #12', origin: 'Earth', dob: '1990-12-25', fearsomeness: 2333 },

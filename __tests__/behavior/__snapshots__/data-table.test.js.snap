@@ -157,7 +157,7 @@ exports[`DataTable should render 1`] = `
           <td
             className=""
           >
-            Tue Nov 02 1954 19:00:00 GMT-0500 (Eastern Daylight Time)
+            1954-11-03T00:00:00.000Z
           </td>
           <td
             className=""
