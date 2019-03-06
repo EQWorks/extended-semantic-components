@@ -1,6 +1,6 @@
 {
   "name": "@eqworks/extended-semantic-components",
-  "version": "2.2.0",
+  "version": "2.2.1-alpha0",
   "description": "A collection of custom Semantic UI React components",
   "repository": {
     "type": "git",
