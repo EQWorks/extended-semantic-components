@@ -157,7 +157,7 @@ class DataTable extends Component {
       this.setState({
         activePage: 1,
         sortColumn: column,
-        sortType: this.columns().find(col => col.dataKey === column).sortType,
+        sortType: this.columns().find(col => col.dataKey === column).sortType || 'basic',
         sortDirection: 'ascending',
       })
     }
