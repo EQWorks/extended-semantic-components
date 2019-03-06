@@ -58,13 +58,10 @@ class DataTable extends Component {
       defaultSortDir: sortDirection,
     } = props
 
-    const sortCol = this.columns().find(col => col.dataKey === sortColumn)
-
     const picked = this.pickables()
     this.state = {
       sortColumn,
       sortDirection,
-      sortType: sortCol ? sortCol.sortType : false,
       activePage: 1,
       searchInput: '',
       picked,
@@ -107,6 +104,7 @@ class DataTable extends Component {
   columns = () => {
     const { children, columns, data} = this.props
     const emptyData = []
+    const sortType = key => (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
     if (!children && !columns) {
       const columns = []
       if (!data.length) {
@@ -118,7 +116,7 @@ class DataTable extends Component {
         dataKey: key,
         pickable: true,
         searchable: true,
-        sortType: (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
+        sortType: sortType(key)
       })))
       return columns
     }
@@ -127,7 +125,7 @@ class DataTable extends Component {
       // apply default here since columns are not DataTableColumn instances
       return columns.map(c => ({
         ...columnDefaultProps,
-        sortType: (Number.isInteger(data[0][c.dataKey])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][c.dataKey]))) ? 'date' : 'string'),
+        sortType: sortType(c.dataKey),
         ...c,
       }))
     }
@@ -135,8 +133,8 @@ class DataTable extends Component {
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => ({
+        sortType: sortType(c.dataKey),
         ...c.props,
-        sortType: (Number.isInteger(data[0][c.dataKey])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][c.dataKey]))) ? 'date' : 'string'),
       }))
   }
 
@@ -166,7 +164,6 @@ class DataTable extends Component {
       this.setState({
         activePage: 1,
         sortColumn: column,
-        sortType: this.columns().find(col => col.dataKey === column).sortType,
         sortDirection: 'ascending',
       })
     }
@@ -234,7 +231,7 @@ class DataTable extends Component {
         acc[key] = value
         return acc
       }, {})
-    const { activePage, sortColumn, sortDirection, sortType, searchInput, picked } = this.state
+    const { activePage, sortColumn, sortDirection, searchInput, picked } = this.state
 
     // set unique row key
     let id = 0
@@ -251,9 +248,13 @@ class DataTable extends Component {
 
     const columns = this.pickedColumns()
 
-    const sortedData = filteredData.sort(
-      (a, b) => sort(sortType || 'basic', sortDirection)(a[sortColumn], b[sortColumn])
-    )
+    let sortedData = filteredData
+    if (sortColumn !== '') {
+      const { sortType } = this.columns().find(o => o.dataKey === sortColumn)
+      sortedData = filteredData.sort(
+        (a, b) => sort(sortType || 'basic', sortDirection)(a[sortColumn], b[sortColumn])
+      )
+    }
 
     // pagination
     const offset = perPage * activePage
