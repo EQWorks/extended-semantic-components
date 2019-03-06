@@ -14,8 +14,8 @@ import search from '../utils/search'
 const colPropKeys = Object.keys(columnProps)
 
 const childrenColumnCheck = (props, propName, componentName) => {
-  if ((!props.children && !props.columns) || (props.children && props.columns)) {
-    return new Error(`Only one of 'children' or 'columns' is allowed in '${componentName}'`)
+  if (props.children && props.columns) {
+    return new Error(`Only one or none of 'children' or 'columns' is allowed in '${componentName}'`)
   }
 }
 

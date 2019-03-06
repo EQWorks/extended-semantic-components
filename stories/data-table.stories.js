@@ -5,20 +5,13 @@ import { storiesOf } from '@storybook/react'
 import { Container, Button } from 'semantic-ui-react'
 
 import { DataTable } from '../src'
-import { largeDataset } from './data.js'
+import { largeDataset, monsters } from './data.js'
 /*
 largeDataset = [
   { id: 2, first_name: 'Dorene', last_name: 'Faill', email: 'dfaill1@eepurl.com' },
   ...
 ]
 */
-
-const monsters = [
-  { name: 'Godzilla', origin: 'Earth', dob: new Date().toString(), fearsomeness: 1000 },
-  { name: 'Ghidorah', origin: '???', dob: '2008-08-08', fearsomeness: 800 },
-  { name: 'Lugia', origin: 'Pokémon Universe', dob: '1990-11-23', fearsomeness: 1001 },
-  { name: 'Bulbasaur #12', origin: 'Earth', dob: '1990-12-25', fearsomeness: 2333 },
-]
 
 storiesOf('DataTable', module)
   .addParameters({
