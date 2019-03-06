@@ -3,8 +3,8 @@ export default (type, direction) => {
   switch (type) {
   case 'string':
     return (a, b) => {
-      const aName = a.toLowerCase()
-      const bName = b.toLowerCase()
+      const aName = String(a || '').toLowerCase()
+      const bName = String(b || '').toLowerCase()
       if (aName < bName) {
         return dirFactor
       }
