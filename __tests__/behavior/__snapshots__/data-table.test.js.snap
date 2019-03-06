@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataTable should render 1`] = `
+<div
+  style={
+    Object {
+      "marginTop": "1em",
+      "paddingBottom": "1em",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "overflowX": "auto",
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "background": "#F9FAFB",
+          "border": "1px solid rgba(34, 36, 38, 0.15)",
+          "borderBottom": 0,
+          "borderRadius": "4px 4px 0px 0px",
+          "overflow": "auto",
+          "padding": "8px",
+        }
+      }
+    >
+      <form
+        className="ui mini form"
+        onSubmit={[Function]}
+      >
+        <div
+          className="field"
+        >
+          <div
+            className="ui medium icon input"
+          >
+            <input
+              onChange={[Function]}
+              placeholder="Search..."
+              type="text"
+              value=""
+            />
+            <i
+              aria-hidden="true"
+              className="search icon"
+            />
+          </div>
+        </div>
+        <div>
+          <div
+            className="ui mini buttons"
+          >
+            <button
+              className="ui primary button"
+              onClick={[Function]}
+              role="button"
+            >
+              name
+            </button>
+            <button
+              className="ui primary button"
+              onClick={[Function]}
+              role="button"
+            >
+              origin
+            </button>
+            <button
+              className="ui primary button"
+              onClick={[Function]}
+              role="button"
+            >
+              dob
+            </button>
+            <button
+              className="ui primary button"
+              onClick={[Function]}
+              role="button"
+            >
+              fearsomeness
+            </button>
+          </div>
+          <button
+            className="ui blue mini icon right floated button"
+            onClick={[Function]}
+            role="button"
+          >
+            <i
+              aria-hidden="true"
+              className="download icon"
+            />
+          </button>
+        </div>
+      </form>
+    </div>
+    <table
+      className="ui selectable sortable table"
+      style={
+        Object {
+          "borderRadius": 0,
+          "marginTop": 0,
+        }
+      }
+    >
+      <thead
+        className=""
+      >
+        <tr
+          className=""
+        >
+          <th
+            className=""
+            onClick={[Function]}
+          >
+            name
+          </th>
+          <th
+            className=""
+            onClick={[Function]}
+          >
+            origin
+          </th>
+          <th
+            className=""
+            onClick={[Function]}
+          >
+            dob
+          </th>
+          <th
+            className=""
+            onClick={[Function]}
+          >
+            fearsomeness
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        className=""
+      >
+        <tr
+          className=""
+        >
+          <td
+            className=""
+          >
+            Godzilla
+          </td>
+          <td
+            className=""
+          >
+            Earth
+          </td>
+          <td
+            className=""
+          >
+            1954-11-03T00:00:00.000Z
+          </td>
+          <td
+            className=""
+          >
+            1000
+          </td>
+        </tr>
+        <tr
+          className=""
+        >
+          <td
+            className=""
+          >
+            Ghidorah
+          </td>
+          <td
+            className=""
+          >
+            ???
+          </td>
+          <td
+            className=""
+          >
+            2008-08-08
+          </td>
+          <td
+            className=""
+          >
+            800
+          </td>
+        </tr>
+        <tr
+          className=""
+        >
+          <td
+            className=""
+          >
+            Lugia
+          </td>
+          <td
+            className=""
+          >
+            Pokémon Universe
+          </td>
+          <td
+            className=""
+          >
+            1990-11-23
+          </td>
+          <td
+            className=""
+          >
+            1001
+          </td>
+        </tr>
+        <tr
+          className=""
+        >
+          <td
+            className=""
+          >
+            Bulbasaur #12
+          </td>
+          <td
+            className=""
+          >
+            Earth
+          </td>
+          <td
+            className=""
+          >
+            1990-12-25
+          </td>
+          <td
+            className=""
+          >
+            2333
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
