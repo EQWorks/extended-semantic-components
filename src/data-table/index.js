@@ -76,7 +76,7 @@ class DataTable extends Component {
     const headers = columns.map(c => c.name)
     const valueKeys = columns.map(c => c.dataKey)
 
-    let csvContent = 'data:text/csv;charset=utf-8,'
+    let csvContent = ''
 
     headers.forEach((h) => {
       csvContent += `"${String(h).replace(/"/g, '""')}",`
@@ -92,7 +92,7 @@ class DataTable extends Component {
       csvContent += '\r\n'
     })
 
-    const url = encodeURI(csvContent)
+    const url = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`
     const link = document.createElement('a')
     link.setAttribute('href', url)
     link.setAttribute('download', `${downloadName}.csv`)
