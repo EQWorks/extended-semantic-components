@@ -25,7 +25,6 @@ const propTypes = {
   defaultSortKey: PropTypes.string,
   /** one of ['descending', 'ascending'] */
   defaultSortDir: PropTypes.string,
-  defaultSortType: PropTypes.string,
   downloadName: PropTypes.string,
   download: PropTypes.bool,
   perPage: PropTypes.number,
@@ -39,7 +38,6 @@ const propTypes = {
 const defaultProps = {
   defaultSortKey: '',
   defaultSortDir: 'descending',
-  defaultSortType: 'string',
   downloadName: 'Table',
   download: true,
   perPage: 9,
@@ -58,14 +56,15 @@ class DataTable extends Component {
     const {
       defaultSortKey: sortColumn,
       defaultSortDir: sortDirection,
-      defaultSortType: sortType,
     } = props
+
+    const sortCol = this.columns().find(col => col.dataKey === sortColumn)
 
     const picked = this.pickables()
     this.state = {
       sortColumn,
       sortDirection,
-      sortType,
+      sortType: sortCol ? sortCol.sortType : false,
       activePage: 1,
       searchInput: '',
       picked,
@@ -126,12 +125,19 @@ class DataTable extends Component {
 
     if (Array.isArray(columns) && columns.length > 0) {
       // apply default here since columns are not DataTableColumn instances
-      return columns.map(c => ({ ...columnDefaultProps, ...c }))
+      return columns.map(c => ({
+        ...columnDefaultProps,
+        sortType: (Number.isInteger(data[0][c.dataKey])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][c.dataKey]))) ? 'date' : 'string'),
+        ...c,
+      }))
     }
 
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
-      .map(c => c.props)
+      .map(c => ({
+        ...c.props,
+        sortType: (Number.isInteger(data[0][c.dataKey])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][c.dataKey]))) ? 'date' : 'string'),
+      }))
   }
 
   searchables = () => this.columns().filter(c => c.searchable).map(c => c.dataKey)
@@ -160,7 +166,7 @@ class DataTable extends Component {
       this.setState({
         activePage: 1,
         sortColumn: column,
-        sortType: this.columns().find(col => col.dataKey === column).sortType || 'basic',
+        sortType: this.columns().find(col => col.dataKey === column).sortType,
         sortDirection: 'ascending',
       })
     }

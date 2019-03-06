@@ -1,12 +1,11 @@
-const normalizeBy = (type) => (value) => ({
+const normalizeBy = (type, value) => ({
   string: String(value || '').toLowerCase(),
   date: new Date(value),
 }[type] || value)
 
 const sortBy = (type, dirFactor) => (a, b) => {
-  const normalize = normalizeBy(type)
-  const aNorm = normalize(a)
-  const bNorm = normalize(b)
+  const aNorm = normalizeBy(type, a)
+  const bNorm = normalizeBy(type, b)
   if (aNorm < bNorm) {
     return -dirFactor
   }

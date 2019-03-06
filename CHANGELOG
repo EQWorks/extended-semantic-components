@@ -5,11 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Added
-- `DataTable` property `defaultSortType` to compensate the lack of `sortType` for tables initialized with `defaultSortKey`.
 
 ### Fixed
-- `DataTable` sort crash on no `sortType` specification.
+- `DataTable` defaultSortKey not taking effect due to lack of sortType
 - `DataTable` string type sort crash on non-string `(a, b)` values.
 - `DataTable` string type sort reversed order ('ascending' resulting in 'descending').
 

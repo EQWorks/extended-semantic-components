@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 const propTypes = {
   name: PropTypes.string.isRequired,
+  sortType: PropTypes.string.isRequired,
   dataKey: PropTypes.string,
   searchable: PropTypes.bool,
   pickable: PropTypes.bool,
@@ -12,7 +13,6 @@ const propTypes = {
   nullTemplate: PropTypes.string,
   template: PropTypes.func,
   sortable: PropTypes.bool,
-  sortType: PropTypes.string,
 }
 
 const defaultProps = {
@@ -22,7 +22,6 @@ const defaultProps = {
   template: null,
   nullTemplate: null,
   sortable: true,
-  sortType: 'string',
 }
 
 class DataTableColumn extends React.Component { }

@@ -177,7 +177,6 @@ storiesOf('DataTable', module)
             pickable: true,
             searchable: true,
             sortable: true,
-            sortType: 'basic',
           },
           {
             name: 'Date of Birth',
