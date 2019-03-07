@@ -42,3 +42,26 @@ test('Searches normal character in field of supplied array included diacritics o
     ]
   )
 })
+
+test('Searches number in field of supplied array included number of objects', () => {
+  expect(
+    search(
+      '890', // search text
+      // search target data array
+      [
+        { name: 'Athena', origin: 'Earth', cell: '647-234-8908'},
+        { name: 'Bob', origin: '???', cell: '647-134-8908'},
+        { name: 'Celia', origin: 'Pokémon Universe', cell: '647-890-8777'},
+        { name: 'David', origin: 'Earth', cell: '647-233-3333'},
+      ],
+      // searchable fields
+      ['name', 'origin', 'cell']
+    )
+  ).toEqual(
+    [
+      { name: 'Athena', origin: 'Earth', cell: '647-234-8908'},
+      { name: 'Bob', origin: '???', cell: '647-134-8908'},
+      { name: 'Celia', origin: 'Pokémon Universe', cell: '647-890-8777'},
+    ]
+  )
+})
