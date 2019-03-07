@@ -65,3 +65,69 @@ test('Searches number in field of supplied array included number of objects', ()
     ]
   )
 })
+
+test('Searches two word in field of supplied array of objects', () => {
+  expect(
+    search(
+      'america south', // search text
+      // search target data array
+      [
+        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+        { name: 'David', origin: 'South America', cell: '647-233-3333'},
+      ],
+      // searchable fields
+      ['name', 'origin', 'cell']
+    )
+  ).toEqual(
+    [
+      { name: 'David', origin: 'South America', cell: '647-233-3333'},
+    ]
+  )
+})
+
+test('Searches first word correct second word one typo in field of supplied array of objects', () => {
+  expect(
+    search(
+      'south dddd', // search text
+      // search target data array
+      [
+        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+        { name: 'David', origin: 'South America', cell: '647-233-3333'},
+      ],
+      // searchable fields
+      ['name', 'origin', 'cell']
+    )
+  ).toEqual(
+    [
+      { name: 'David', origin: 'South America', cell: '647-233-3333'},
+    ]
+  )
+})
+
+test('Searches first word typo second word correct in field of supplied array of objects', () => {
+  expect(
+    search(
+      'dddd america', // search text
+      // search target data array
+      [
+        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+        { name: 'David', origin: 'South America', cell: '647-233-3333'},
+      ],
+      // searchable fields
+      ['name', 'origin', 'cell']
+    )
+  ).toEqual(
+    [
+      { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+      { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+      { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+      { name: 'David', origin: 'South America', cell: '647-233-3333'},
+    ]
+  )
+})
