@@ -234,32 +234,30 @@ class DataTable extends Component {
     const { activePage, sortColumn, sortDirection, searchInput, picked } = this.state
 
     // set unique row key
-    let id = 0
-    data.forEach((row) => {
-      id += 1
-      row._id = id
-    })
+    let thisData = data.map((row, i) => ({
+      ...row,
+      _id: i,
+    }))
 
     // searching
     const searchables = this.searchables()
     const filteredData = searchInput && searchInput.length > 2
       ? this.getFilteredData()
-      : data
+      : thisData
 
     const columns = this.pickedColumns()
 
-    let sortedData = filteredData
     if (sortColumn !== '') {
       const { sortType } = this.columns().find(o => o.dataKey === sortColumn)
-      sortedData = filteredData.sort(
+      filteredData.sort(
         (a, b) => sort(sortType || 'basic', sortDirection)(a[sortColumn], b[sortColumn])
       )
     }
 
     // pagination
     const offset = perPage * activePage
-    const totalPages = Math.ceil(sortedData.length / perPage)
-    const paginatedData = sortedData.filter((d, i) => i >= (offset - perPage) && i < offset)
+    const totalPages = Math.ceil(filteredData.length / perPage)
+    const paginatedData = filteredData.filter((d, i) => i >= (offset - perPage) && i < offset)
 
     // pick/toggle
     const pickables = this.pickables()
