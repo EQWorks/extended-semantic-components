@@ -282,13 +282,13 @@ storiesOf('DataTable', module)
   .add('Customize search table', () => (
     <Container>
       <DataTable data={monsters} customizeSearch={(text, data, searchables) => {
-            const options = {
-              shouldSort: true,
-              tokenize: true,
-              keys: searchables,
-            }
-            const fuse = new Fuse(data, options)
-            return fuse.search(text)
-        }}/>
+        const options = {
+          shouldSort: true,
+          tokenize: true,
+          keys: searchables,
+        }
+        const fuse = new Fuse(data, options)
+        return fuse.search(text)
+      }} />
     </Container>
   ))
