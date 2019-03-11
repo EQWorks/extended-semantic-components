@@ -10,7 +10,6 @@ import DataTableColumn, {
 } from './data-table-column'
 import customSort from '../utils/sort'
 import search from '../utils/search'
-import Fuse from 'fuse.js'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -35,7 +34,7 @@ const propTypes = {
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
   downloadPicked: PropTypes.bool,
-  customizeSearch: PropTypes.bool,
+  customizeSearch: PropTypes.func,
 }
 
 const defaultProps = {
@@ -49,7 +48,7 @@ const defaultProps = {
   emptySearchMsg: 'Couldn\'t find anything :(',
   noColumnsMsg: 'No columns selected',
   downloadPicked: false,
-  customizeSearch: false,
+  customizeSearch: null,
 }
 
 
@@ -176,16 +175,6 @@ class DataTable extends Component {
     }
   }
 
-  fuse = (text, data, searchables) => {
-    var options = {
-      shouldSort: true,
-      tokenize: true,
-      keys: searchables,
-    }
-    var fuse = new Fuse(data, options)
-    return fuse.search(text)
-  }
-
   getFilteredData() {
     const { data, customizeSearch } = this.props
     const { searchInput } = this.state
@@ -193,11 +182,10 @@ class DataTable extends Component {
     const searchables = this.searchables()
     if (searchables.length === 0) {
       return data
+    } else if (customizeSearch) {
+      return customizeSearch(text, data, searchables)
     }
-    else if (customizeSearch) {
-      return search(text, data, searchables)
-    }
-    return this.fuse(text, data, searchables)
+    return search(text, data, searchables)
   }
 
   onSearchInputChange = (_, { value }) => {

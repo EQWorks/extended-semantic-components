@@ -6,6 +6,7 @@ import { Container, Button } from 'semantic-ui-react'
 
 import { DataTable } from '../src'
 import { largeDataset, monsters } from './data.js'
+import Fuse from 'fuse.js'
 /*
 largeDataset = [
   { id: 2, first_name: 'Dorene', last_name: 'Faill', email: 'dfaill1@eepurl.com' },
@@ -278,8 +279,16 @@ storiesOf('DataTable', module)
       <DataTable data={monsters} />
     </Container>
   ))
-  .add('Customized search', () => (
+  .add('Customize search table', () => (
     <Container>
-      <DataTable data={monsters} customizeSearch={true} />
+      <DataTable data={monsters} customizeSearch={(text, data, searchables) => {
+            const options = {
+              shouldSort: true,
+              tokenize: true,
+              keys: searchables,
+            }
+            const fuse = new Fuse(data, options)
+            return fuse.search(text)
+        }}/>
     </Container>
   ))
