@@ -1,195 +1,124 @@
 import search from '../../src/utils/search'
 
+const matrix = [
+  { text: 'abc',
+    data: [
+            {name: 'abcd', origin: 'alpha'},
+            {name: 'bcde', origin: '9abcd'},
+            {name: 'bcde', origin: 'alpha'},
+          ],
+    searchable: ['name', 'origin'],
+    output: [
+              {name: 'abcd', origin: 'alpha'},
+              {name: 'bcde', origin: '9abcd'},
+            ]
+  },
+  { text: 'jorg',
+    data: [
+            {name: 'Jörg', partner: 'Jürgen'},
+            {name: 'Jürgen', partner: 'Jörg'},
+            {name: 'Günter', partner: 'Erna'},
+          ],
+    searchable: ['name', 'partner'],
+    output: [
+              {name: 'Jörg', partner: 'Jürgen'},
+              {name: 'Jürgen', partner: 'Jörg'},
+            ]
+  },
+  { text: '890',
+    data: [
+            { name: 'Athena', origin: 'Earth', cell: '647-234-8908'},
+            { name: 'Bob', origin: '???', cell: '647-134-8908'},
+            { name: 'Celia', origin: 'Pokémon Universe', cell: '647-890-8777'},
+            { name: 'David', origin: 'Earth', cell: '647-233-3333'},
+          ],
+    searchable: ['name', 'origin', 'cell'],
+    output: [
+              { name: 'Athena', origin: 'Earth', cell: '647-234-8908'},
+              { name: 'Bob', origin: '???', cell: '647-134-8908'},
+              { name: 'Celia', origin: 'Pokémon Universe', cell: '647-890-8777'},
+            ]
+  },
+  { text: 'america south',
+    data: [
+            { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+            { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+            { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+            { name: 'David', origin: 'South America', cell: '647-233-3333'},
+          ],
+    searchable: ['name', 'origin', 'cell'],
+    output: [
+              { name: 'David', origin: 'South America', cell: '647-233-3333'},
+            ]
+  },
+  { text: 'south dddd',
+    data: [
+            { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+            { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+            { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+            { name: 'David', origin: 'South America', cell: '647-233-3333'},
+          ],
+    searchable: ['name', 'origin', 'cell'],
+    output: [
+              { name: 'David', origin: 'South America', cell: '647-233-3333'},
+            ]
+  },
+  { text: 'dddd america',
+    data: [
+            { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+            { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+            { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+            { name: 'David', origin: 'South America', cell: '647-233-3333'},
+          ],
+    searchable: ['name', 'origin', 'cell'],
+    output: [
+              { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+              { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+              { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+              { name: 'David', origin: 'South America', cell: '647-233-3333'},
+            ]
+  },
+  { text: '?',
+    data: [
+            { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+            { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+            { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+            { name: 'David', origin: 'South America', cell: '647-233-3333'},
+          ],
+    searchable: ['name', 'origin', 'cell'],
+    output: []
+  },
+  { text: '                ',
+    data: [
+            { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+            { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+            { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+            { name: 'David', origin: 'South America', cell: '647-233-3333'},
+          ],
+    searchable: ['name', 'origin', 'cell'],
+    output: [
+              { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+              { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+              { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+              { name: 'David', origin: 'South America', cell: '647-233-3333'},
+            ]
+  },
+  { text: 'ath                ena',
+    data: [
+            { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+            { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
+            { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
+            { name: 'David', origin: 'South America', cell: '647-233-3333'},
+          ],
+    searchable: ['name', 'origin', 'cell'],
+    output: [
+              { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
+            ]
+  },
+]
 
-test('Searches "abc" in name field of supplied array of objects', () => {
-  expect(
-    search(
-      'abc', // search text
-      // search target data array
-      [
-        {name: 'abcd', origin: 'alpha'},
-        {name: 'bcde', origin: '9abcd'},
-        {name: 'bcde', origin: 'alpha'},
-      ],
-      // searchable fields
-      ['name', 'origin']
-    )
-  ).toEqual(
-    [
-      {name: 'abcd', origin: 'alpha'},
-      {name: 'bcde', origin: '9abcd'},
-    ]
-  )
-})
-
-test('Searches normal character in field of supplied array included diacritics of objects', () => {
-  expect(
-    search(
-      'jorg', // search text
-      // search target data array
-      [
-        {name: 'Jörg', partner: 'Jürgen'},
-        {name: 'Jürgen', partner: 'Jörg'},
-        {name: 'Günter', partner: 'Erna'},
-      ],
-      // searchable fields
-      ['name', 'partner']
-    )
-  ).toEqual(
-    [
-      {name: 'Jörg', partner: 'Jürgen'},
-      {name: 'Jürgen', partner: 'Jörg'},
-    ]
-  )
-})
-
-test('Searches number in field of supplied array included number of objects', () => {
-  expect(
-    search(
-      '890', // search text
-      // search target data array
-      [
-        { name: 'Athena', origin: 'Earth', cell: '647-234-8908'},
-        { name: 'Bob', origin: '???', cell: '647-134-8908'},
-        { name: 'Celia', origin: 'Pokémon Universe', cell: '647-890-8777'},
-        { name: 'David', origin: 'Earth', cell: '647-233-3333'},
-      ],
-      // searchable fields
-      ['name', 'origin', 'cell']
-    )
-  ).toEqual(
-    [
-      { name: 'Athena', origin: 'Earth', cell: '647-234-8908'},
-      { name: 'Bob', origin: '???', cell: '647-134-8908'},
-      { name: 'Celia', origin: 'Pokémon Universe', cell: '647-890-8777'},
-    ]
-  )
-})
-
-test('Searches two word in field of supplied array of objects', () => {
-  expect(
-    search(
-      'america south', // search text
-      // search target data array
-      [
-        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-        { name: 'David', origin: 'South America', cell: '647-233-3333'},
-      ],
-      // searchable fields
-      ['name', 'origin', 'cell']
-    )
-  ).toEqual(
-    [
-      { name: 'David', origin: 'South America', cell: '647-233-3333'},
-    ]
-  )
-})
-
-test('Searches first word correct second word one typo in field of supplied array of objects', () => {
-  expect(
-    search(
-      'south dddd', // search text
-      // search target data array
-      [
-        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-        { name: 'David', origin: 'South America', cell: '647-233-3333'},
-      ],
-      // searchable fields
-      ['name', 'origin', 'cell']
-    )
-  ).toEqual(
-    [
-      { name: 'David', origin: 'South America', cell: '647-233-3333'},
-    ]
-  )
-})
-
-test('Searches first word typo second word correct in field of supplied array of objects', () => {
-  expect(
-    search(
-      'dddd america', // search text
-      // search target data array
-      [
-        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-        { name: 'David', origin: 'South America', cell: '647-233-3333'},
-      ],
-      // searchable fields
-      ['name', 'origin', 'cell']
-    )
-  ).toEqual(
-    [
-      { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-      { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-      { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-      { name: 'David', origin: 'South America', cell: '647-233-3333'},
-    ]
-  )
-})
-
-test('Searches nothing matched in field of supplied array of objects', () => {
-  expect(
-    search(
-      '?', // search text
-      // search target data array
-      [
-        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-        { name: 'David', origin: 'South America', cell: '647-233-3333'},
-      ],
-      // searchable fields
-      ['name', 'origin', 'cell']
-    )
-  ).toEqual(
-    []
-  )
-})
-
-test('Searches lots of spaces in field of supplied array of objects', () => {
-  expect(
-    search(
-      '                ', // search text
-      // search target data array
-      [
-        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-        { name: 'David', origin: 'South America', cell: '647-233-3333'},
-      ],
-      // searchable fields
-      ['name', 'origin', 'cell']
-    )
-  ).toEqual(
-    [{ name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-    { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-    { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-    { name: 'David', origin: 'South America', cell: '647-233-3333'},
-    ]
-  )
-})
-
-test('Searches lots of spaces between words in field of supplied array of objects', () => {
-  expect(
-    search(
-      'ath                ena', // search text
-      // search target data array
-      [
-        { name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-        { name: 'Bob', origin: 'North America', cell: '647-134-8908'},
-        { name: 'Celia', origin: 'North America', cell: '647-890-8777'},
-        { name: 'David', origin: 'South America', cell: '647-233-3333'},
-      ],
-      // searchable fields
-      ['name', 'origin', 'cell']
-    )
-  ).toEqual(
-    [{ name: 'Athena', origin: 'North America', cell: '647-234-8908'},
-    ]
-  )
+test('input various strings in filed of supplied array of objects', () => {
+  matrix.forEach(({ text, data, searchable, output }) => {
+    expect( search( text, data, searchable ) ).toEqual( output )
+  })
 })
