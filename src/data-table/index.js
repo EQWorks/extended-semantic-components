@@ -181,7 +181,7 @@ class DataTable extends Component {
       shouldSort: true,
       tokenize: true,
       keys: searchables,
-    };
+    }
     var fuse = new Fuse(data, options)
     return fuse.search(text)
   }
