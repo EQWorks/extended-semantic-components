@@ -278,3 +278,8 @@ storiesOf('DataTable', module)
       <DataTable data={monsters} />
     </Container>
   ))
+  .add('Customized search', () => (
+    <Container>
+      <DataTable data={monsters} customizeSearch={true} />
+    </Container>
+  ))

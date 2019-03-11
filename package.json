@@ -29,6 +29,7 @@
     "semantic-ui"
   ],
   "dependencies": {
+    "fuse.js": "^3.4.4",
     "moment": "^2.23.0",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
