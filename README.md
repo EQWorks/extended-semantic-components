@@ -11,6 +11,8 @@ You can see the components in action at <https://eqworks.github.io/extended-sema
 ### Installation
 
 ```
+$ yarn add @eqworks/extended-semantic-components
+# OR
 $ npm install @eqworks/extended-semantic-components
 ```
 
