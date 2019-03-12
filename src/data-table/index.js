@@ -8,8 +8,7 @@ import DataTableColumn, {
   propTypes as columnProps,
   defaultProps as columnDefaultProps,
 } from './data-table-column'
-import customSort from '../utils/sort'
-import defaultSearch from '../utils/search'
+import { sort, defaultSearch } from '../utils'
 
 const colPropKeys = Object.keys(columnProps)
 

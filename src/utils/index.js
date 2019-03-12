@@ -1,2 +1,2 @@
 export { default as sort } from './sort'
-export { default as search } from './search'
+export { default as defaultSearch } from './search'
