@@ -281,7 +281,7 @@ storiesOf('DataTable', module)
   ))
   .add('Customize search table', () => (
     <Container>
-      <DataTable data={monsters} customizeSearch={(text, data, searchables) => {
+      <DataTable data={monsters} customizedSearch={(text, data, searchables) => {
         const options = {
           shouldSort: true,
           tokenize: true,

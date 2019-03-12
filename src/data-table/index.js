@@ -34,7 +34,7 @@ const propTypes = {
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
   downloadPicked: PropTypes.bool,
-  customizeSearch: PropTypes.func,
+  customizedSearch: PropTypes.func,
 }
 
 const defaultProps = {
@@ -48,7 +48,7 @@ const defaultProps = {
   emptySearchMsg: 'Couldn\'t find anything :(',
   noColumnsMsg: 'No columns selected',
   downloadPicked: false,
-  customizeSearch: null,
+  customizedSearch: null,
 }
 
 
@@ -176,14 +176,14 @@ class DataTable extends Component {
   }
 
   getFilteredData() {
-    const { data, customizeSearch } = this.props
+    const { data, customizedSearch } = this.props
     const { searchInput } = this.state
     const text = searchInput.toLowerCase()
     const searchables = this.searchables()
     if (searchables.length === 0) {
       return data
-    } else if (customizeSearch) {
-      return customizeSearch(text, data, searchables)
+    } else if (customizedSearch) {
+      return customizedSearch(text, data, searchables)
     }
     return search(text, data, searchables)
   }
