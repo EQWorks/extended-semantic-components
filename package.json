@@ -9,8 +9,8 @@
   "scripts": {
     "test": "jest",
     "transpile": "rimraf dist && babel src --out-dir dist --copy-files",
-    "lint": "eslint src stories",
-    "lint:watch:fix": "esw --fix --watch src stories",
+    "lint": "eslint src stories __tests__",
+    "lint:watch:fix": "esw --fix --watch src stories __tests__",
     "storybook": "start-storybook -p 6006",
     "deploy-storybook": "storybook-to-ghpages",
     "prepublishOnly": "yarn lint && yarn test && yarn transpile"
