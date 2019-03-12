@@ -9,7 +9,7 @@ import DataTableColumn, {
   defaultProps as columnDefaultProps,
 } from './data-table-column'
 import customSort from '../utils/sort'
-import search from '../utils/search'
+import defaultSearch from '../utils/search'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -34,7 +34,7 @@ const propTypes = {
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
   downloadPicked: PropTypes.bool,
-  customizedSearch: PropTypes.func,
+  search: PropTypes.func,
 }
 
 const defaultProps = {
@@ -48,7 +48,7 @@ const defaultProps = {
   emptySearchMsg: 'Couldn\'t find anything :(',
   noColumnsMsg: 'No columns selected',
   downloadPicked: false,
-  customizedSearch: null,
+  search: null,
 }
 
 
@@ -176,16 +176,16 @@ class DataTable extends Component {
   }
 
   getFilteredData() {
-    const { data, customizedSearch } = this.props
+    const { data, search } = this.props
     const { searchInput } = this.state
     const text = searchInput.toLowerCase()
     const searchables = this.searchables()
     if (searchables.length === 0) {
       return data
-    } else if (customizedSearch) {
-      return customizedSearch(text, data, searchables)
+    } else if (search) {
+      return search(text, data, searchables)
     }
-    return search(text, data, searchables)
+    return defaultSearch(text, data, searchables)
   }
 
   onSearchInputChange = (_, { value }) => {
