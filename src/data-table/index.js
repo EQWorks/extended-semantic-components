@@ -8,8 +8,7 @@ import DataTableColumn, {
   propTypes as columnProps,
   defaultProps as columnDefaultProps,
 } from './data-table-column'
-import customSort from '../utils/sort'
-import defaultSearch from '../utils/search'
+import { sort, defaultSearch } from '../utils'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -45,7 +44,7 @@ const defaultProps = {
   perPage: 9,
   onRowClick: null,
   isRowActive: null,
-  emptySearchMsg: 'Couldn\'t find anything :(',
+  emptySearchMsg: "Couldn't find anything :(",
   noColumnsMsg: 'No columns selected',
   downloadPicked: false,
   search: null,
@@ -107,6 +106,7 @@ class DataTable extends Component {
   columns = () => {
     const { children, columns, data} = this.props
     const emptyData = []
+    const sortType = key => (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
     if (!children && !columns) {
       const columns = []
       if (!data.length) {
@@ -118,19 +118,26 @@ class DataTable extends Component {
         dataKey: key,
         pickable: true,
         searchable: true,
-        sortType: (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
+        sortType: sortType(key)
       })))
       return columns
     }
 
     if (Array.isArray(columns) && columns.length > 0) {
       // apply default here since columns are not DataTableColumn instances
-      return columns.map(c => ({ ...columnDefaultProps, ...c }))
+      return columns.map(c => ({
+        ...columnDefaultProps,
+        sortType: sortType(c.dataKey),
+        ...c,
+      }))
     }
 
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
-      .map(c => c.props)
+      .map(c => ({
+        sortType: sortType(c.dataKey),
+        ...c.props,
+      }))
   }
 
   searchables = () => this.columns().filter(c => c.searchable).map(c => c.dataKey)
@@ -159,7 +166,6 @@ class DataTable extends Component {
       this.setState({
         activePage: 1,
         sortColumn: column,
-        sortType: this.columns().find(col => col.dataKey === column).sortType,
         sortDirection: 'ascending',
       })
     }
@@ -229,33 +235,33 @@ class DataTable extends Component {
         acc[key] = value
         return acc
       }, {})
-    const { activePage, sortColumn, sortDirection, sortType, searchInput, picked } = this.state
+    const { activePage, sortColumn, sortDirection, searchInput, picked } = this.state
 
     // set unique row key
-    let id = 0
-    data.forEach((row) => {
-      id += 1
-      row._id = id
-    })
+    let thisData = data.map((row, i) => ({
+      ...row,
+      _id: i,
+    }))
 
     // searching
     const searchables = this.searchables()
     const filteredData = searchInput && searchInput.length > 2
       ? this.getFilteredData()
-      : data
+      : thisData
 
     const columns = this.pickedColumns()
 
-    const sortedData = sortType ? filteredData.sort(
-      (a, b) => customSort(
-        sortType,
-        sortDirection)(a[sortColumn], b[sortColumn])
-    ) : filteredData
+    if (sortColumn !== '') {
+      const { sortType } = this.columns().find(o => o.dataKey === sortColumn)
+      filteredData.sort(
+        (a, b) => sort(sortType || 'basic', sortDirection)(a[sortColumn], b[sortColumn])
+      )
+    }
 
     // pagination
     const offset = perPage * activePage
-    const totalPages = Math.ceil(sortedData.length / perPage)
-    const paginatedData = sortedData.filter((d, i) => i >= (offset - perPage) && i < offset)
+    const totalPages = Math.ceil(filteredData.length / perPage)
+    const paginatedData = filteredData.filter((d, i) => i >= (offset - perPage) && i < offset)
 
     // pick/toggle
     const pickables = this.pickables()

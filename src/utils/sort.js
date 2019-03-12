@@ -1,33 +1,41 @@
+const normalizeBy = (type) => (value) => ({
+  string: String(value === undefined || value === null ? '' : value).toLowerCase(),
+  date: Date.parse(value),
+}[type])
+
+const sortBy = (type, dirFactor) => (a, b) => {
+  const [aNorm, bNorm] = [a,b].map(normalizeBy(type))
+  if (!aNorm && !bNorm) {
+    return 0
+  }
+  if (aNorm < bNorm || !aNorm) {
+    return -dirFactor
+  }
+  if (aNorm > bNorm || !bNorm) {
+    return dirFactor
+  }
+  return 0
+}
+
 export default (type, direction) => {
   const dirFactor = direction === 'ascending' ? 1 : -1
   switch (type) {
   case 'string':
-    return (a, b) => {
-      const aName = a.toLowerCase()
-      const bName = b.toLowerCase()
-      if (aName < bName) {
-        return dirFactor
-      }
-      if (aName > bName) {
-        return -dirFactor
-      }
-      return 0
-    }
   case 'date':
+    return sortBy(type, dirFactor)
+  case 'basic':
+  default:
     return (a, b) => {
-      const aDate = new Date(a)
-      const bDate = new Date(b)
-      if (aDate < bDate) {
+      if (!parseInt(a) && !parseInt(b)) {
+        return 0
+      }
+      if (!parseInt(a)) {
         return -dirFactor
       }
-      if (aDate > bDate) {
+      if (!parseInt(b)) {
         return dirFactor
       }
-      return 0
+      return dirFactor * (a - b)
     }
-  case 'basic':
-    return (a, b) => dirFactor * (a - b)
-  default:
-    return (a, b) => dirFactor * (a - b)
   }
 }

@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - customized search feature
 
+### Fixed
+- `DataTable` defaultSortKey not taking effect due to lack of sortType
+- `DataTable` string type sort crash on non-string `(a, b)` values.
+- `DataTable` string type sort reversed order ('ascending' resulting in 'descending').
+
 ## [2.2.0] - 2019-03-01
 ### Added
 - Table able to download to honour user picked columns.

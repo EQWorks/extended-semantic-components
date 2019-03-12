@@ -237,6 +237,74 @@ exports[`DataTable should render 1`] = `
             2333
           </td>
         </tr>
+        <tr
+          className=""
+        >
+          <td
+            className=""
+          >
+            It
+          </td>
+          <td
+            className=""
+          >
+            
+          </td>
+          <td
+            className=""
+          >
+            
+          </td>
+          <td
+            className=""
+          >
+            Hey!
+          </td>
+        </tr>
+        <tr
+          className=""
+        >
+          <td
+            className=""
+          >
+            Cerberus
+          </td>
+          <td
+            className=""
+          >
+            0
+          </td>
+          <td
+            className=""
+          />
+          <td
+            className=""
+          >
+            ruff
+          </td>
+        </tr>
+        <tr
+          className=""
+        >
+          <td
+            className=""
+          >
+            Cthulhu
+          </td>
+          <td
+            className=""
+          />
+          <td
+            className=""
+          >
+            0
+          </td>
+          <td
+            className=""
+          >
+            100000
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
