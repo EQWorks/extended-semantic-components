@@ -106,7 +106,7 @@ class DataTable extends Component {
   columns = () => {
     const { children, columns, data} = this.props
     const emptyData = []
-    const sortType = key => (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
+    const sortType = key => data.length ? (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string') : 'basic'
     if (!children && !columns) {
       const columns = []
       if (!data.length) {
