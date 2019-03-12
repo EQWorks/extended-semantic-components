@@ -1,5 +1,5 @@
 import search from '../../src/utils/search'
-import { sort } from '../../src/utils/sort'
+import { sort } from '../../src/utils'
 
 const matrix = [
   { text: 'abc',
