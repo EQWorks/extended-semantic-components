@@ -8,7 +8,7 @@ import DataTableColumn, {
   propTypes as columnProps,
   defaultProps as columnDefaultProps,
 } from './data-table-column'
-import { sort, defaultSearch } from '../utils'
+import { sort, defaultSearch, getDefaultSortType } from '../utils'
 
 const colPropKeys = Object.keys(columnProps)
 
@@ -23,8 +23,7 @@ const propTypes = {
   children: childrenColumnCheck,
   columns: childrenColumnCheck,
   defaultSortKey: PropTypes.string,
-  /** one of ['descending', 'ascending'] */
-  defaultSortDir: PropTypes.string,
+  defaultSortDir: PropTypes.oneOf(['descending', 'ascending']),
   downloadName: PropTypes.string,
   download: PropTypes.bool,
   perPage: PropTypes.number,
@@ -105,29 +104,26 @@ class DataTable extends Component {
 
   columns = () => {
     const { children, columns, data} = this.props
-    const emptyData = []
-    const sortType = key => (Number.isInteger(data[0][key])) ? 'basic' : ((Number.isInteger(Date.parse(data[0][key]))) ? 'date' : 'string')
+    if (!data || data.length === 0) return []
+
     if (!children && !columns) {
-      const columns = []
-      if (!data.length) {
-        return emptyData
-      }
-      Object.keys(data[0]).forEach(key => (key !== '_id' && columns.push({
+      const defaultColumns = []
+      Object.keys(data[0]).forEach(key => (key !== '_id' && defaultColumns.push({
         ...columnDefaultProps,
         name: key,
         dataKey: key,
         pickable: true,
         searchable: true,
-        sortType: sortType(key)
+        sortType: getDefaultSortType(data, key)
       })))
-      return columns
+      return defaultColumns
     }
 
     if (Array.isArray(columns) && columns.length > 0) {
       // apply default here since columns are not DataTableColumn instances
       return columns.map(c => ({
         ...columnDefaultProps,
-        sortType: sortType(c.dataKey),
+        sortType: getDefaultSortType(data, c.dataKey),
         ...c,
       }))
     }
@@ -135,7 +131,7 @@ class DataTable extends Component {
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => ({
-        sortType: sortType(c.dataKey),
+        sortType: getDefaultSortType(data, c.dataKey),
         ...c.props,
       }))
   }

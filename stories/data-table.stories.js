@@ -49,6 +49,26 @@ storiesOf('DataTable', module)
       </DataTable>
     </Container>
   ))
+  .add('Zero config table', () => (
+    <Container>
+      <DataTable data={monsters} />
+    </Container>
+  ))
+  .add('Empty Data', () => (
+    <Container>
+      <DataTable data={[]} download={false} >
+        <DataTable.Column name='Name' dataKey='name' />
+        <DataTable.Column name='Origin' dataKey='origin' />
+      </DataTable>
+    </Container>
+  ))
+  .add('Empty Data - zero config', () => (
+    <Container>
+      <DataTable
+        data={[]}
+      />
+    </Container>
+  ))
   .add('Custom Download Name', () => (
     <Container>
       <DataTable data={monsters} downloadName='monsters'>
@@ -271,11 +291,6 @@ storiesOf('DataTable', module)
         <DataTable.Column name='Origin' dataKey='origin' />
         <DataTable.Column name='Date of Birth' dataKey='dob' />
       </DataTable>
-    </Container>
-  ))
-  .add('Zero config table', () => (
-    <Container>
-      <DataTable data={monsters} />
     </Container>
   ))
   .add('Custom search table', () => (

@@ -17,7 +17,7 @@ const sortBy = (type, dirFactor) => (a, b) => {
   return 0
 }
 
-export default (type, direction) => {
+export const sort = (type, direction) => {
   const dirFactor = direction === 'ascending' ? 1 : -1
   switch (type) {
   case 'string':
@@ -37,5 +37,24 @@ export default (type, direction) => {
       }
       return dirFactor * (a - b)
     }
+  }
+}
+
+export const getDefaultSortType = (data, key) => {
+  if (data.length === 0) {
+    return null
+  }
+
+  const value = data[0][key]
+  if ([null, undefined, NaN].includes(value)) {
+    return null
+  }
+
+  if (Number.isInteger(value)) {
+    return 'basic'
+  } else if (Number.isInteger(Date.parse(value))) {
+    return 'date'
+  } else {
+    return 'string'
   }
 }
