@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.2] - 2019-03-15
+### Fixed
+- `DataTable` crashing bug with empty dataset. (https://github.com/EQWorks/extended-semantic-components/issues/37)
+
 ## [2.3.1] - 2019-03-12
 ### Added
-- customized search feature
+- `DataTable` customizable search interface
 
 ### Fixed
 - `DataTable` defaultSortKey not taking effect due to lack of sortType
@@ -17,13 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.0] - 2019-03-01
 ### Added
-- Table able to download to honour user picked columns.
-- Tokenized search feature.
+- `DataTable` able to download to honour user picked columns.
+- `DataTable` Tokenized search feature.
 - Zero config `DataTable`.
 - Working storybook of `DateRangePicker`.
 
 ### Fixed
-- A bug caused by doing search while not in the first page.
+- `DataTable` A bug caused by doing search while not in the first page.
 
 ## [2.1.0] - 2019-01-28
 ### Added
