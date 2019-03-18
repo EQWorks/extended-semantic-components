@@ -83,8 +83,8 @@
     "semantic-ui-react": "^0.86.0"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "semantic-ui-react": "^0.83.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "semantic-ui-react": "^0.86.0"
   }
 }
