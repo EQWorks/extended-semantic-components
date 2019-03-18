@@ -48,6 +48,7 @@ exports[`DataTable should render 1`] = `
             <i
               aria-hidden="true"
               className="search icon"
+              onClick={[Function]}
             />
           </div>
         </div>
@@ -58,28 +59,24 @@ exports[`DataTable should render 1`] = `
             <button
               className="ui primary button"
               onClick={[Function]}
-              role="button"
             >
               name
             </button>
             <button
               className="ui primary button"
               onClick={[Function]}
-              role="button"
             >
               origin
             </button>
             <button
               className="ui primary button"
               onClick={[Function]}
-              role="button"
             >
               dob
             </button>
             <button
               className="ui primary button"
               onClick={[Function]}
-              role="button"
             >
               fearsomeness
             </button>
@@ -87,11 +84,11 @@ exports[`DataTable should render 1`] = `
           <button
             className="ui blue mini icon right floated button"
             onClick={[Function]}
-            role="button"
           >
             <i
               aria-hidden="true"
               className="download icon"
+              onClick={[Function]}
             />
           </button>
         </div>
