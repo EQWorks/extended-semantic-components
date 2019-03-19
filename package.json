@@ -7,6 +7,7 @@
     "url": "https://github.com/EQWorks/Extended-Semantic-Components.git"
   },
   "scripts": {
+    "start": "yarn storybook",
     "test": "jest",
     "transpile": "rimraf dist && babel src --out-dir dist --copy-files",
     "lint": "eslint src stories __tests__",
