@@ -54,13 +54,12 @@ const Dropzone = ({
     isDragAccept,
     isDragReject,
     acceptedFiles,
-    rejectedFiles,
   } = useDropzone({ onDrop, accept })
 
   const renderChildren = () => {
     if (initWithPreview || acceptedFiles.length) {
       return renderPreview ? renderPreview(acceptedFiles) : (
-        acceptedFiles.map(f => <div>{f.name}</div>)
+        acceptedFiles.map((f, i) => <div key={`${i}_${f.name}`}>{f.name}</div>)
       )
     }
 
@@ -94,12 +93,12 @@ const Dropzone = ({
 /* Styles */
 const getBorderColor = (props) => {
   if (props.isDragReject) {
-    return 'rgb(204, 102, 102)';
+    return 'rgb(204, 102, 102)'
   }
   if (props.isDragAccept || props.isDragActive) {
-    return 'rgb(102, 204, 102)';
+    return 'rgb(102, 204, 102)'
   }
-  return 'rgb(102, 102, 102)';
+  return 'rgb(102, 102, 102)'
 }
 
 const StyledDropzone = styled.div`

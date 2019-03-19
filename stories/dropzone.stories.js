@@ -45,10 +45,10 @@ storiesOf('Dropzone', module)
             <img
               src={
                 acceptedFiles.length === 0
-                ?
-                'https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png'
-                :
-                URL.createObjectURL(acceptedFiles[0])}
+                  ?
+                  'https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png'
+                  :
+                  URL.createObjectURL(acceptedFiles[0])}
               style={{ width: '400px' }}
             />
           </div>
