@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropzone should render 1`] = `
+<div
+  className="sc-bdVaJa cpcuHa"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onDragEnter={[Function]}
+  onDragLeave={[Function]}
+  onDragOver={[Function]}
+  onDrop={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  tabIndex={0}
+>
+  <input
+    accept={null}
+    autoComplete="off"
+    multiple={true}
+    onChange={[Function]}
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    tabIndex={-1}
+    type="file"
+  />
+  <h1
+    className="sc-bwzfXH hzZAvg"
+  >
+    Drop File Here or Click to Upload
+    <p
+      className="sc-htpNat hRMbIi"
+    >
+      
+    </p>
+  </h1>
+</div>
+`;
+
+exports[`Dropzone with custom message for CSV 1`] = `
+<div
+  className="sc-bdVaJa cpcuHa"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onDragEnter={[Function]}
+  onDragLeave={[Function]}
+  onDragOver={[Function]}
+  onDrop={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  tabIndex={0}
+>
+  <input
+    accept=".csv, text/csv, application/vnd.ms-excel"
+    autoComplete="off"
+    multiple={true}
+    onChange={[Function]}
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    tabIndex={-1}
+    type="file"
+  />
+  <h1
+    className="sc-bwzfXH hzZAvg"
+  >
+    Drop your file here
+    <p
+      className="sc-htpNat hRMbIi"
+    >
+      Only CSV files are allowed
+    </p>
+  </h1>
+</div>
+`;
