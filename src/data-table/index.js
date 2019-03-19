@@ -31,6 +31,7 @@ const propTypes = {
   isRowActive: PropTypes.func,
   emptySearchMsg: PropTypes.string,
   noColumnsMsg: PropTypes.string,
+  noDataMsg: PropTypes.string,
   downloadPicked: PropTypes.bool,
   search: PropTypes.func,
 }
@@ -45,6 +46,7 @@ const defaultProps = {
   isRowActive: null,
   emptySearchMsg: "Couldn't find anything :(",
   noColumnsMsg: 'No columns selected',
+  noDataMsg: 'Empty data :(',
   downloadPicked: false,
   search: null,
 }
@@ -224,6 +226,7 @@ class DataTable extends Component {
       isRowActive,
       emptySearchMsg,
       noColumnsMsg,
+      noDataMsg,
     } = this.props
     const tableProps = Object.entries(this.props)
       .filter(([key]) => !Object.keys(propTypes).includes(key))
@@ -340,9 +343,15 @@ class DataTable extends Component {
                 </Table.Row>
               }
               {
-                columns.length === 0 &&
+                columns.length === 0 && data.length !== 0 &&
                 <Table.Row textAlign='center'>
-                  <Table.HeaderCell colSpan={columns.length}>{data.length === 0 ? 'Empty data :(' : noColumnsMsg}</Table.HeaderCell>
+                  <Table.HeaderCell colSpan={columns.length}>{noColumnsMsg}</Table.HeaderCell>
+                </Table.Row>
+              }
+              {
+                data.length === 0 &&
+                <Table.Row textAlign='center'>
+                  <Table.HeaderCell colSpan={columns.length}>{noDataMsg}</Table.HeaderCell>
                 </Table.Row>
               }
               {paginatedData.map(row => (
