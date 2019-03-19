@@ -342,7 +342,7 @@ class DataTable extends Component {
               {
                 columns.length === 0 &&
                 <Table.Row textAlign='center'>
-                  <Table.HeaderCell colSpan={columns.length}>{noColumnsMsg}</Table.HeaderCell>
+                  <Table.HeaderCell colSpan={columns.length}>{data.length === 0 ? 'Empty data :(' : noColumnsMsg}</Table.HeaderCell>
                 </Table.Row>
               }
               {paginatedData.map(row => (
