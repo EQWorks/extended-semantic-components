@@ -34,7 +34,7 @@ storiesOf('Dropzone', module)
       />
     </div>
   ))
-  .add('Template preview', () => (
+  .add('Initial template preview', () => (
     <div style={{ margin: '2rem' }}>
       <Dropzone
         onDrop={action('handleFileDrop')}
