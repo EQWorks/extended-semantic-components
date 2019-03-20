@@ -12,7 +12,8 @@ const propTypes = {
   nullTemplate: PropTypes.string,
   template: PropTypes.func,
   sortable: PropTypes.bool,
-  sortType: PropTypes.string,
+  /** Use basic for number */
+  sortType: PropTypes.oneOf(['basic', 'string', 'date']),
 }
 
 const defaultProps = {
