@@ -37,7 +37,7 @@ exports[`DataTable should render 1`] = `
           className="field"
         >
           <div
-            className="ui medium icon input"
+            className="ui icon input"
           >
             <input
               onChange={[Function]}
