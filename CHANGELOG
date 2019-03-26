@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - `DataTable` Render No columns selected as the placeholder message  with empty dataset.
 
+### Changed
+- *[Breaking Change]* `peerDependencies` updated with React `^16.8` for utilization of hooks.
+
 ## [2.3.2] - 2019-03-15
 ### Fixed
 - `DataTable` crashing bug with empty dataset. (https://github.com/EQWorks/extended-semantic-components/issues/37)
