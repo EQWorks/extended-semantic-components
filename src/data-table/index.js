@@ -285,7 +285,6 @@ class DataTable extends Component {
                     placeholder='Search...'
                     value={searchInput}
                     onChange={this.onSearchInputChange}
-                    size='medium'
                     icon='search'
                   />
                 )}
