@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Dropzone` component added
 
 ### Fixed
-- `DataTable` Render No columns selected as the placeholder message  with empty dataset.
+- `DataTable` Render No columns selected as the placeholder message with empty dataset.
+- `DataTable` unable to sort on float value
 
 ### Changed
 - *[Breaking Change]* `peerDependencies` updated with React `^16.8` for utilization of hooks.
