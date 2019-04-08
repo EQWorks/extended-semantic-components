@@ -26,13 +26,13 @@ export const sort = (type, direction) => {
   case 'basic':
   default:
     return (a, b) => {
-      if (!Number(a) && !Number(b)) {
+      if (isNaN(Number(a)) && isNaN(Number(b))) {
         return 0
       }
-      if (!Number(a)) {
+      if (isNaN(Number(a))) {
         return -dirFactor
       }
-      if (!Number(b)) {
+      if (isNaN(Number(b))) {
         return dirFactor
       }
       return dirFactor * (a - b)
