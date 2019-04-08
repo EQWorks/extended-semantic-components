@@ -26,13 +26,13 @@ export const sort = (type, direction) => {
   case 'basic':
   default:
     return (a, b) => {
-      if (!parseInt(a) && !parseInt(b)) {
+      if (!Number(a) && !Number(b)) {
         return 0
       }
-      if (!parseInt(a)) {
+      if (!Number(a)) {
         return -dirFactor
       }
-      if (!parseInt(b)) {
+      if (!Number(b)) {
         return dirFactor
       }
       return dirFactor * (a - b)
@@ -50,7 +50,7 @@ export const getDefaultSortType = (data, key) => {
     return null
   }
 
-  if (Number.isInteger(value)) {
+  if (typeof value === 'number') {
     return 'basic'
   } else if (Number.isInteger(Date.parse(value))) {
     return 'date'
