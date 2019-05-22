@@ -125,7 +125,7 @@ class DataTable extends Component {
       // apply default here since columns are not DataTableColumn instances
       return columns.map(c => ({
         ...columnDefaultProps,
-        sortType: getDefaultSortType(data, c.dataKey),
+        sortType: getDefaultSortType(data, c.props.dataKey),
         ...c,
       }))
     }
@@ -133,7 +133,7 @@ class DataTable extends Component {
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => ({
-        sortType: getDefaultSortType(data, c.dataKey),
+        sortType: getDefaultSortType(data, c.props.dataKey),
         ...c.props,
       }))
   }
@@ -253,7 +253,7 @@ class DataTable extends Component {
     if (sortColumn !== '') {
       const { sortType } = this.columns().find(o => o.dataKey === sortColumn)
       filteredData.sort(
-        (a, b) => sort(sortType || 'basic', sortDirection)(a[sortColumn], b[sortColumn])
+        (a, b) => sort(sortType, sortDirection)(a[sortColumn], b[sortColumn])
       )
     }
 
