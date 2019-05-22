@@ -125,7 +125,7 @@ class DataTable extends Component {
       // apply default here since columns are not DataTableColumn instances
       return columns.map(c => ({
         ...columnDefaultProps,
-        sortType: getDefaultSortType(data, c.props.dataKey),
+        sortType: getDefaultSortType(data, c.dataKey),
         ...c,
       }))
     }
@@ -204,17 +204,21 @@ class DataTable extends Component {
   }
 
   renderCell = (row, col) => {
-    if (col.nullTemplate && (row[col.dataKey] === null || row[col.dataKey] === undefined)) {
+    const value = row[col.dataKey]
+    if (col.nullTemplate && (value === null || value === undefined)) {
       return col.nullTemplate
     }
     if (col.format) {
-      return numeral(row[col.dataKey]).format(col.format)
+      return numeral(value).format(col.format)
     }
     if (col.template) {
-      return col.template(row[col.dataKey], row, col.dataKey)
+      return col.template(value, row, col.dataKey)
+    }
+    if (value && typeof value === 'object') {
+      return JSON.stringify(value)
     }
 
-    return row[col.dataKey]
+    return value
   }
 
   render() {
