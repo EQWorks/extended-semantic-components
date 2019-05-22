@@ -211,7 +211,7 @@ class DataTable extends Component {
       return numeral(row[col.dataKey]).format(col.format)
     }
     if (col.template) {
-      return col.template(row[col.dataKey], row)
+      return col.template(row[col.dataKey], row, col.dataKey)
     }
 
     return row[col.dataKey]
