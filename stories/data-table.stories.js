@@ -281,10 +281,10 @@ storiesOf('DataTable', module)
         <DataTable.Column
           name='Name'
           dataKey='name'
-          template={(value, row) => (
+          template={(value, row, dataKey) => (
             <Button
               content={value}
-              onClick={() => alert(`Name: ${value}, Birth: ${row.dob}`)}
+              onClick={() => alert(`${dataKey}: ${value}, Birth: ${row.dob}`)}
             />
           )}
         />

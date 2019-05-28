@@ -133,7 +133,7 @@ class DataTable extends Component {
     return (Array.isArray(children) ? children : [children])
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => ({
-        sortType: getDefaultSortType(data, c.dataKey),
+        sortType: getDefaultSortType(data, c.props.dataKey),
         ...c.props,
       }))
   }
@@ -204,17 +204,21 @@ class DataTable extends Component {
   }
 
   renderCell = (row, col) => {
-    if (col.nullTemplate && (row[col.dataKey] === null || row[col.dataKey] === undefined)) {
+    const value = row[col.dataKey]
+    if (col.nullTemplate && (value === null || value === undefined)) {
       return col.nullTemplate
     }
     if (col.format) {
-      return numeral(row[col.dataKey]).format(col.format)
+      return numeral(value).format(col.format)
     }
     if (col.template) {
-      return col.template(row[col.dataKey], row)
+      return col.template(value, row, col.dataKey)
+    }
+    if (value && typeof value === 'object') {
+      return JSON.stringify(value)
     }
 
-    return row[col.dataKey]
+    return value
   }
 
   render() {
@@ -253,7 +257,7 @@ class DataTable extends Component {
     if (sortColumn !== '') {
       const { sortType } = this.columns().find(o => o.dataKey === sortColumn)
       filteredData.sort(
-        (a, b) => sort(sortType || 'basic', sortDirection)(a[sortColumn], b[sortColumn])
+        (a, b) => sort(sortType, sortDirection)(a[sortColumn], b[sortColumn])
       )
     }
 
