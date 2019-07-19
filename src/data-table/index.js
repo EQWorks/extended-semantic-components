@@ -130,7 +130,7 @@ class DataTable extends Component {
       }))
     }
 
-    return (Array.isArray(children) ? children : [children])
+    return React.Children.toArray(children)
       .filter(c => c.type === DataTableColumn || c.type.name === 'DataTableColumn')
       .map(c => ({
         sortType: getDefaultSortType(data, c.props.dataKey),
