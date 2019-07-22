@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2019-07-25
+### Fixed
+- `DataTable` fixed to properly handle using `.map` to generate columns (i.e. DataColumn returned by`{columns.map(...)}`)
+
+### Added
+- `DataTable` custom styling now available through `cellStyle`, `rowStyle` and `colStyle` props. These props are objects with string keys denoting how to target the cell/row/col (e.g. '-1' for all, '0' for the first row, '1-1' for the second row's second cell) and values with the following structure:
+```
+'-1': {
+	style: {} // inline styling,
+	className: 'computedClassName',
+	...semanticProps, // e.g. positive: true
+	dynamic: ({ value, row, rowIdx, colIdx }) => { function returning a style object, same shape as above },
+	conditions: ({ value, row, rowIdx, colIdx }) => { ... function returning true if the above style is to be applied },
+}
+```
 ## [3.1.0] - 2019-05-28
 ### Fixed
 - `DataTable` fix datatable default sorting bug
