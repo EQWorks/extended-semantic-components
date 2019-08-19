@@ -34,6 +34,9 @@ const propTypes = {
   noDataMsg: PropTypes.string,
   downloadPicked: PropTypes.bool,
   search: PropTypes.func,
+  cellStyles: PropTypes.object,
+  rowStyles: PropTypes.object,
+  colStyles: PropTypes.object,
 }
 
 const defaultProps = {
@@ -49,6 +52,9 @@ const defaultProps = {
   noDataMsg: 'Empty data :(',
   downloadPicked: false,
   search: null,
+  cellStyles: {},
+  rowStyles: {},
+  colStyles: {},
 }
 
 
@@ -221,6 +227,29 @@ class DataTable extends Component {
     return value
   }
 
+  // conditionParams = { value, row, rowIdx, colIdx }
+  evalStyle = ({ style, conditionParams }) => style &&
+    (!style.condition || style.condition({ ...conditionParams }))
+  /* eslint-disable-next-line no-unused-vars */
+  removeCondition = ({ condition, ...style }) => style
+
+  evalStyles = ({ cellStyle, rowStyle, colStyle, ...conditionParams }) => {
+    let style = {}
+    // priority = cell > row > col
+    if (this.evalStyle({ style: colStyle, conditionParams })) {
+      style = colStyle
+    } else if (this.evalStyle({ style: rowStyle, conditionParams })) {
+      style = rowStyle
+    } else if (this.evalStyle({ style: cellStyle, conditionParams })) {
+      style = cellStyle
+    }
+
+    if (style.dynamic) {
+      return style.dynamic({ ...conditionParams })
+    }
+    return this.removeCondition(style)
+  }
+
   render() {
     const {
       data,
@@ -231,6 +260,9 @@ class DataTable extends Component {
       emptySearchMsg,
       noColumnsMsg,
       noDataMsg,
+      cellStyles,
+      rowStyles,
+      colStyles,
     } = this.props
     const tableProps = Object.entries(this.props)
       .filter(([key]) => !Object.keys(propTypes).includes(key))
@@ -357,12 +389,12 @@ class DataTable extends Component {
                   <Table.HeaderCell colSpan={columns.length}>{noDataMsg}</Table.HeaderCell>
                 </Table.Row>
               }
-              {paginatedData.map(row => (
+              {paginatedData.map((row, rowIdx) => (
                 <Table.Row
                   key={row._id}
                   active={typeof isRowActive === 'function' ? isRowActive(row) : undefined}
                   onClick={typeof onRowClick === 'function' ? this.createRowClickListener(row) : undefined}>
-                  {columns.map((col) => {
+                  {columns.map((col, colIdx) => {
                     // split out generic ...celProps passed-through similar to ...tableProps
                     const cellProps = { ...col }
                     const colProps = {}
@@ -372,8 +404,12 @@ class DataTable extends Component {
                         delete cellProps[key]
                       }
                     })
+                    const cellStyle = cellStyles[`${rowIdx}-${colIdx}`] || cellStyles['-1']
+                    const rowStyle = rowStyles[rowIdx] || rowStyles['-1']
+                    const colStyle = colStyles[colIdx] || colStyles['-1']
+                    const style = this.evalStyles({ cellStyle, rowStyle, colStyle, value: row[col.dataKey], row, rowIdx, colIdx})
                     return (
-                      <Table.Cell key={col.dataKey || col.name} {...cellProps}>
+                      <Table.Cell key={col.dataKey || col.name} {...cellProps} {...style}>
                         {this.renderCell(row, colProps)}
                       </Table.Cell>
                     )

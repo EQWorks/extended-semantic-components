@@ -190,3 +190,34 @@ export const monsters = [
   { name: 'Cerberus', origin: 0, dob: null, fearsomeness: 'ruff' },
   { name: 'Cthulhu', origin: null, dob: 0, fearsomeness: 100000 },
 ]
+
+export const cohort = [
+  {
+    period: { header: 'All Users', subheader: '95,798 Users' },
+    week0: 100,
+    week1: 3.16,
+    week2: 1.64,
+    week3: 1.27,
+  },
+  {
+    period: { header: 'Aug 13, 2017 - Aug 19, 2017', subheader: '15,855 Users' },
+    week0: 100,
+    week1: 3.15,
+    week2: 1.78,
+    week3: 1.32,
+  },
+  {
+    period: { header: 'Aug 20, 2017 - Aug 26, 2017', subheader: '15,628 Users' },
+    week0: 100,
+    week1: 3.22,
+    week2: 1.66,
+    week3: 1.57,
+  },
+  {
+    period: { header: 'Aug 27 2017 - Sep 2, 2017', subheader: '15,316 Users' },
+    week0: 99.97,
+    week1: 3.33,
+    week2: 2.06,
+    week3: 1.95,
+  }
+]
