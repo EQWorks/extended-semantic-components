@@ -90,8 +90,9 @@ class DateRangePicker extends Component {
     if (!(endDate === null || endStart.isSame(currEndStart))) {
       this.close()
       onSelection({ startDate, endDate })
+    } else {
+      this.setState({ startDate, endDate })
     }
-    this.setState({ startDate, endDate })
   }
 
   isOutsideRange = (day) => {
